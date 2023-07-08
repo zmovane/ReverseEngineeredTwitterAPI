@@ -5,6 +5,7 @@ use ethers::types::H160;
 use log::{error, info};
 
 mod cmd;
+mod twitter;
 mod util;
 
 #[tokio::main]
