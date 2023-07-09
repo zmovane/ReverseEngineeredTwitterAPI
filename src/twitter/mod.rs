@@ -13,6 +13,9 @@ mod tests {
         let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
         let mut api = API::new();
         let result = api.login(name, pwd, "".to_string()).await;
-        assert!(result.is_ok())
+        assert!(result.is_ok());
+
+        let is_logged_in = api.is_logged_in().await;
+        assert!(is_logged_in)
     }
 }

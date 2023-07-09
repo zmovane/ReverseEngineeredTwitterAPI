@@ -1,5 +1,7 @@
-use log::{debug, info};
-use reqwest::{self, Client, Error};
+use reqwest::{
+    self,
+    Client, Error,
+};
 use serde::Deserialize;
 use serde_json::{self, json};
 const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
@@ -12,9 +14,17 @@ const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
 const APP_CONSUMER_SECRET: &str = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys";
 
 #[derive(Deserialize)]
+pub struct User {
+    id: i64,
+    id_str: String,
+    name: String,
+    screen_name: String,
+}
+#[derive(Deserialize)]
 pub struct OpenAccount {
-    oauth_token: String,
-    oauth_token_secret: String,
+    user: Option<User>,
+    next_link: Option<Link>,
+    attribution_event: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -58,19 +68,25 @@ pub struct GuestToken {
 
 #[derive(Deserialize)]
 pub struct VerifyCredentials {
-    errors: Vec<ApiError>,
+    errors: Option<Vec<ApiError>>,
 }
 
 pub struct API {
     client: Client,
     guest_token: String,
+    csrf_token: String,
 }
 
 impl API {
     pub fn new() -> API {
+        let client = reqwest::ClientBuilder::new()
+            .cookie_store(true)
+            .build()
+            .unwrap();
         return API {
-            client: reqwest::ClientBuilder::new().build().unwrap(),
+            client,
             guest_token: "".to_string(),
+            csrf_token: "".to_string(),
         };
     }
     async fn get_flow(&mut self, body: serde_json::Value) -> Result<Flow, Error> {
@@ -91,8 +107,13 @@ impl API {
             .send()
             .await?;
 
-        let text = res.text().await?;
-        let result: Flow = serde_json::from_str(&text).unwrap();
+        let cookies = res.cookies();
+        for cookie in cookies {
+            if cookie.name().eq("ct0") {
+                self.csrf_token = cookie.value().to_string()
+            }
+        }
+        let result: Flow = res.json().await?;
         return Ok(result);
     }
 
@@ -102,9 +123,15 @@ impl API {
             Ok(info) => {
                 println!("flow token: {}", info.flow_token);
                 if info.subtasks.len() > 0 {
-                    let subtask_id = info.subtasks[0].subtask_id.to_owned();
-                    if subtask_id.ne("LoginJsInstrumentationSubtask") {
-                        return Err(format!("Auth error: {}", subtask_id));
+                    let subtask_id = info.subtasks[0].subtask_id.as_str();
+                    match subtask_id {
+                        "LoginEnterAlternateIdentifierSubtask"
+                        | "LoginAcid"
+                        | "LoginTwoFactorAuthChallenge"
+                        | "DenyLoginSubtask" => {
+                            return Err(format!("Auth error: {}", subtask_id));
+                        }
+                        _ => return Ok(info.flow_token),
                     }
                 }
                 return Ok(info.flow_token);
@@ -125,6 +152,7 @@ impl API {
             Ok(r) => {
                 let op = r.json::<serde_json::Value>().await?;
                 let guest_token = op.get("guest_token").unwrap();
+                println!("guest token{}", guest_token.to_string());
                 self.guest_token = guest_token.to_string();
                 return Ok(());
             }
@@ -175,20 +203,20 @@ impl API {
         let data = json!(
             {
                 "flow_token": flow_token,
-                "subtask_inputs" : {
+                "subtask_inputs" : [{
                     "subtask_id": "LoginEnterUserIdentifierSSO",
                     "settings_list": {
-                        "setting_responses" : {
+                        "setting_responses" : [{
                             "key":           "user_identifier",
                             "response_data": {
                                 "text_data" :{
                                     "result": user_name
                                 }
                             }
-                        },
+                        }],
                         "link": "next_link"
                     }
-                }
+                }]
             }
         );
         let flow_token = self.get_flow_token(data).await?;
@@ -198,13 +226,13 @@ impl API {
         let data = json!(
             {
                 "flow_token": flow_token,
-                "subtask_inputs": {
+                "subtask_inputs": [{
                     "subtask_id":     "LoginEnterPassword",
                     "enter_password": {
                         "password": password,
                         "link": "next_link"
                     },
-                }
+                }]
             }
         );
         let flow_token = self.get_flow_token(data).await?;
@@ -214,13 +242,14 @@ impl API {
         let data = json!(
             {
                 "flow_token": flow_token,
-                "subtask_inputs": {
+                "subtask_inputs": [{
                     "subtask_id":              "AccountDuplicationCheck",
                     "check_logged_in_account": {
                         "link": "AccountDuplicationCheck_false"
                     },
+                }]
             }
-        });
+        );
         let flow_token = self.get_flow_token(data).await;
 
         match flow_token {
@@ -261,15 +290,22 @@ impl API {
     }
 
     pub async fn is_logged_in(&self) -> bool {
-        let res = self
+        let req = self
             .client
             .get(VERIFY_CREDENTIALS_URL)
-            .send()
+            .header("Authorization", format!("Bearer {}", BEARER_TOKEN))
+            .header("X-CSRF-Token", self.csrf_token.to_owned())
+            .build()
+            .unwrap();
+        let text = self
+            .client
+            .execute(req)
             .await
             .unwrap()
-            .json::<VerifyCredentials>()
+            .text()
             .await
             .unwrap();
-        res.errors.len() == 0
+        let res: VerifyCredentials = serde_json::from_str(&text).unwrap();
+        res.errors.is_none()
     }
 }
