@@ -1,6 +1,6 @@
 mod api;
-
-pub use self::api::Account;
+pub use self::api::API;
+use dotenv::dotenv;
 
 #[cfg(test)]
 mod tests {
@@ -8,14 +8,13 @@ mod tests {
 
     #[tokio::test]
     async fn test_login() {
-        let account = Account {};
-        let result = account
-            .login(
-                std::env::var("TWITTER_USER_NAME").unwrap(),
-                std::env::var("TWITTER_USER_PASSWORD").unwrap(),
-                "".to_owned(),
-            )
-            .await;
+        dotenv().ok();
+        let name = std::env::var("TWITTER_USER_NAME").unwrap();
+        let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
+        let account = API {
+            client: reqwest::ClientBuilder::new().build().unwrap(),
+        };
+        let result = account.login(name, pwd, "".to_string()).await;
         assert!(result.is_ok())
     }
 }

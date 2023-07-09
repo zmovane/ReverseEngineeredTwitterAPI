@@ -1,9 +1,11 @@
-use reqwest::{self, header, Error};
+use log::{debug, info};
+use reqwest::{self, Client, Error};
 use serde::Deserialize;
 use serde_json::{self, json};
 const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
 const LOGOUR_URL: &str = "https://api.twitter.com/1.1/account/logout.json";
 const GUEST_ACTIVE_URL: &str = "https://api.twitter.com/1.1/guest/activate.json";
+const VERIFY_CREDENTIALS_URL: &str = "https://api.twitter.com/1.1/account/verify_credentials.json";
 const OAUTH_URL: &str = "https://api.twitter.com/oauth2/token";
 const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA";
 const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
@@ -18,21 +20,35 @@ pub struct OpenAccount {
 #[derive(Deserialize)]
 pub struct Subtask {
     subtask_id: String,
-    open_account: OpenAccount,
+    open_account: Option<OpenAccount>,
 }
 
 #[derive(Deserialize)]
 pub struct ApiError {
-    code: String,
+    code: i64,
     message: String,
 }
 
 #[derive(Deserialize)]
 pub struct Flow {
-    errors: Vec<ApiError>,
+    errors: Option<Vec<ApiError>>,
     flow_token: String,
     status: String,
     subtasks: Vec<Subtask>,
+    js_instrumentation: Option<Insrumentation>,
+}
+
+#[derive(Deserialize)]
+pub struct Insrumentation {
+    url: String,
+    timeout_ms: i64,
+    next_link: Link,
+}
+
+#[derive(Deserialize)]
+pub struct Link {
+    link_type: String,
+    link_id: String,
 }
 
 #[derive(Deserialize)]
@@ -40,56 +56,64 @@ pub struct GuestToken {
     guest_token: String,
 }
 
+#[derive(Deserialize)]
 pub struct VerifyCredentials {
     errors: Vec<ApiError>,
 }
 
-pub struct Account;
+pub struct API {
+    pub client: Client,
+}
 
-impl Account {
+impl API {
     async fn get_flow(&self, body: serde_json::Value) -> Result<Flow, Error> {
         let guest_token = self.get_guest_token().await?;
-        let mut headers = header::HeaderMap::new();
-        let token = format!("Bearer {}", BEARER_TOKEN).parse().unwrap();
-        headers.insert("Authorization", token);
-        headers.insert("Content-Type", "application/json".parse().unwrap());
-        headers.insert("User-Agent", "TwitterAndroid/99".parse().unwrap());
-        headers.insert("X-Guest-Token", guest_token.parse().unwrap());
-        headers.insert("X-Twitter-Auth-Type", "OAuth2Client".parse().unwrap());
-        headers.insert("X-Twitter-Active-User", "yes".parse().unwrap());
-        headers.insert("X-Twitter-Client-Language", "en".parse().unwrap());
+        let res = self
+            .client
+            .post(LOGIN_URL)
+            .header("Authorization", format!("Bearer {}", BEARER_TOKEN))
+            .header("Content-Type", "application/json")
+            .header("User-Agent", "TwitterAndroid/99")
+            .header("X-Guest-Token", guest_token.replace("\"", ""))
+            .header("X-Twitter-Auth-Type", "OAuth2Client")
+            .header("X-Twitter-Active-User", "yes")
+            .header("X-Twitter-Client-Language", "en")
+            .json(&body)
+            .send()
+            .await?;
 
-        let client = reqwest::ClientBuilder::new()
-            .default_headers(headers)
-            .build()
-            .unwrap();
-        let res = client.post(LOGIN_URL).json(&body).send().await?;
-        return res.json::<Flow>().await;
+        let text = res.text().await?;
+        let result: Flow = serde_json::from_str(&text).unwrap();
+        return Ok(result);
     }
 
     async fn get_flow_token(&self, data: serde_json::Value) -> Result<String, String> {
         let res = self.get_flow(data);
         match res.await {
             Ok(info) => {
+                println!("flow token: {}", info.flow_token);
                 if info.subtasks.len() > 0 {
                     let subtask_id = info.subtasks[0].subtask_id.to_owned();
-                    return Err(format!("Auth error: {}", subtask_id));
+                    if subtask_id.ne("LoginJsInstrumentationSubtask") {
+                        return Err(format!("Auth error: {}", subtask_id));
+                    }
                 }
                 return Ok(info.flow_token);
             }
-            Err(e) => Err(format!("Request error: {}", e.to_string())),
+            Err(e) => {
+                Err(format!("Request error: {}", e.to_string()))
+            }
         }
     }
 
     async fn get_guest_token(&self) -> Result<String, Error> {
-        let mut headers = header::HeaderMap::new();
-        let token = format!("Bearer {}", BEARER_TOKEN).parse().unwrap();
-        headers.insert("Authorization", token);
-        let client = reqwest::ClientBuilder::new()
-            .default_headers(headers)
-            .build()
-            .unwrap();
-        let res = client.post(GUEST_ACTIVE_URL).send().await;
+        let token = format!("Bearer {}", BEARER_TOKEN);
+        let res = self
+            .client
+            .post(GUEST_ACTIVE_URL)
+            .header("Authorization", token)
+            .send()
+            .await;
         match res {
             Ok(r) => {
                 let op = r.json::<serde_json::Value>().await?;
@@ -121,21 +145,23 @@ impl Account {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
+        println!("flow start: {}", flow_token.to_owned());
 
         // flow instrumentation step
         let data = json!(
             {
                 "flow_token": flow_token,
-                "subtask_inputs" : {
+                "subtask_inputs" : [{
                     "subtask_id": "LoginJsInstrumentationSubtask",
-                    "js_instrumentation": {
+                    "js_instrumentation":{
                         "response": "{}",
                         "link": "next_link"
                     }
-                }
+                }],
             }
         );
         let flow_token = self.get_flow_token(data).await?;
+        println!("flow instrumentation step: {}", flow_token.to_owned());
 
         // flow username step
         let data = json!(
@@ -158,6 +184,7 @@ impl Account {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
+        println!("flow username step: {}", flow_token.to_owned());
 
         // flow password step
         let data = json!(
@@ -173,6 +200,7 @@ impl Account {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
+        println!("flow password step: {}", flow_token.to_owned());
 
         // flow duplication check
         let data = json!(
@@ -186,6 +214,7 @@ impl Account {
             }
         });
         let flow_token = self.get_flow_token(data).await;
+
         match flow_token {
             Err(e) => {
                 let mut confirmation_subtask = "";
@@ -221,5 +250,18 @@ impl Account {
             }
             Ok(_) => return Ok("".to_owned()),
         }
+    }
+
+    pub async fn is_logged_in(&self) -> bool {
+        let res = self
+            .client
+            .get(VERIFY_CREDENTIALS_URL)
+            .send()
+            .await
+            .unwrap()
+            .json::<VerifyCredentials>()
+            .await
+            .unwrap();
+        res.errors.len() == 0
     }
 }
