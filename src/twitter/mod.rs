@@ -11,10 +11,8 @@ mod tests {
         dotenv().ok();
         let name = std::env::var("TWITTER_USER_NAME").unwrap();
         let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
-        let account = API {
-            client: reqwest::ClientBuilder::new().build().unwrap(),
-        };
-        let result = account.login(name, pwd, "".to_string()).await;
+        let mut api = API::new();
+        let result = api.login(name, pwd, "".to_string()).await;
         assert!(result.is_ok())
     }
 }

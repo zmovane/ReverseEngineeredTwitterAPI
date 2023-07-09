@@ -62,19 +62,28 @@ pub struct VerifyCredentials {
 }
 
 pub struct API {
-    pub client: Client,
+    client: Client,
+    guest_token: String,
 }
 
 impl API {
-    async fn get_flow(&self, body: serde_json::Value) -> Result<Flow, Error> {
-        let guest_token = self.get_guest_token().await?;
+    pub fn new() -> API {
+        return API {
+            client: reqwest::ClientBuilder::new().build().unwrap(),
+            guest_token: "".to_string(),
+        };
+    }
+    async fn get_flow(&mut self, body: serde_json::Value) -> Result<Flow, Error> {
+        if self.guest_token.is_empty() {
+            self.get_guest_token().await?
+        }
         let res = self
             .client
             .post(LOGIN_URL)
             .header("Authorization", format!("Bearer {}", BEARER_TOKEN))
             .header("Content-Type", "application/json")
             .header("User-Agent", "TwitterAndroid/99")
-            .header("X-Guest-Token", guest_token.replace("\"", ""))
+            .header("X-Guest-Token", self.guest_token.replace("\"", ""))
             .header("X-Twitter-Auth-Type", "OAuth2Client")
             .header("X-Twitter-Active-User", "yes")
             .header("X-Twitter-Client-Language", "en")
@@ -87,7 +96,7 @@ impl API {
         return Ok(result);
     }
 
-    async fn get_flow_token(&self, data: serde_json::Value) -> Result<String, String> {
+    async fn get_flow_token(&mut self, data: serde_json::Value) -> Result<String, String> {
         let res = self.get_flow(data);
         match res.await {
             Ok(info) => {
@@ -100,13 +109,11 @@ impl API {
                 }
                 return Ok(info.flow_token);
             }
-            Err(e) => {
-                Err(format!("Request error: {}", e.to_string()))
-            }
+            Err(e) => Err(format!("Request error: {}", e.to_string())),
         }
     }
 
-    async fn get_guest_token(&self) -> Result<String, Error> {
+    async fn get_guest_token(&mut self) -> Result<(), Error> {
         let token = format!("Bearer {}", BEARER_TOKEN);
         let res = self
             .client
@@ -118,14 +125,15 @@ impl API {
             Ok(r) => {
                 let op = r.json::<serde_json::Value>().await?;
                 let guest_token = op.get("guest_token").unwrap();
-                Ok(guest_token.to_string())
+                self.guest_token = guest_token.to_string();
+                return Ok(());
             }
             Err(e) => Err(e),
         }
     }
 
     pub async fn login(
-        &self,
+        &mut self,
         user_name: String,
         password: String,
         confirmation: String,
