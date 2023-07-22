@@ -1,15 +1,14 @@
-use reqwest::{
-    self,
-    Client, Error,
-};
+use reqwest::{self, Client, Error};
 use serde::Deserialize;
 use serde_json::{self, json};
+
+use super::API;
 const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
 const LOGOUR_URL: &str = "https://api.twitter.com/1.1/account/logout.json";
 const GUEST_ACTIVE_URL: &str = "https://api.twitter.com/1.1/guest/activate.json";
 const VERIFY_CREDENTIALS_URL: &str = "https://api.twitter.com/1.1/account/verify_credentials.json";
 const OAUTH_URL: &str = "https://api.twitter.com/oauth2/token";
-const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA";
+pub const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA";
 const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
 const APP_CONSUMER_SECRET: &str = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys";
 
@@ -69,12 +68,6 @@ pub struct GuestToken {
 #[derive(Deserialize)]
 pub struct VerifyCredentials {
     errors: Option<Vec<ApiError>>,
-}
-
-pub struct API {
-    client: Client,
-    guest_token: String,
-    csrf_token: String,
 }
 
 impl API {
@@ -181,7 +174,6 @@ impl API {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
-        println!("flow start: {}", flow_token.to_owned());
 
         // flow instrumentation step
         let data = json!(
@@ -197,7 +189,6 @@ impl API {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
-        println!("flow instrumentation step: {}", flow_token.to_owned());
 
         // flow username step
         let data = json!(
@@ -220,7 +211,6 @@ impl API {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
-        println!("flow username step: {}", flow_token.to_owned());
 
         // flow password step
         let data = json!(
@@ -236,7 +226,6 @@ impl API {
             }
         );
         let flow_token = self.get_flow_token(data).await?;
-        println!("flow password step: {}", flow_token.to_owned());
 
         // flow duplication check
         let data = json!(
@@ -289,7 +278,7 @@ impl API {
         }
     }
 
-    pub async fn is_logged_in(&self) -> bool {
+    pub async fn is_logged_in(&mut self) -> bool {
         let req = self
             .client
             .get(VERIFY_CREDENTIALS_URL)
@@ -297,14 +286,14 @@ impl API {
             .header("X-CSRF-Token", self.csrf_token.to_owned())
             .build()
             .unwrap();
-        let text = self
-            .client
-            .execute(req)
-            .await
-            .unwrap()
-            .text()
-            .await
-            .unwrap();
+        let res = self.client.execute(req).await.unwrap();
+        let cookies = res.cookies();
+        for cookie in cookies {
+            if cookie.name().eq("ct0") {
+                self.csrf_token = cookie.value().to_string()
+            }
+        }
+        let text = res.text().await.unwrap();
         let res: VerifyCredentials = serde_json::from_str(&text).unwrap();
         res.errors.is_none()
     }
