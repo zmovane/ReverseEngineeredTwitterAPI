@@ -9,24 +9,31 @@ Reverse engineered Twitter's API has not a lots of limitations, the rate limit i
 
 ```
 [dependencies]
-reverse-engineered-twitter-api = "0.1.0"
+reverse-engineered-twitter-api = "0.1.1"
 ```
 
 ## Usage
 
+#### Login
+
 ```
-// login
 let name = std::env::var("TWITTER_USER_NAME").unwrap();
 let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
-let confirmation_code = String::from(""); // optional
-api.login(name, pwd, confirmation_code).await
+
+// If no verification code is required, set it to empty
+let confirmation_code = "";
+api.login(&name, &pwd, confirmation_code).await
 
 // check if account is logged in
 let is_logged_in = api.is_logged_in().await;
+```
 
+#### Search
+
+```
 // search tweets
-let content = String::from("@shareverse_bot -filter:retweets")
+let content = "@lidangzzz -filter:retweets";
 let limit = 50;
-let cursor = String::from("");
-api.search_tweets(content, limit, cursor).await
+let cursor = "";
+api.search_tweets(content, limit, cursor).await;
 ```

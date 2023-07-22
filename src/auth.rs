@@ -144,9 +144,9 @@ impl API {
 
     pub async fn login(
         &mut self,
-        user_name: String,
-        password: String,
-        confirmation: String,
+        user_name: &str,
+        password: &str,
+        confirmation: &str,
     ) -> Result<String, String> {
         // flow start
         let data = json!(

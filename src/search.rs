@@ -12,9 +12,9 @@ const SEARCH_URL: &str = "https://twitter.com/i/api/graphql/nK1dw4oV3k4w5TdtcAdS
 impl API {
     pub async fn search(
         &self,
-        query: String,
+        query: &str,
         limit: u8,
-        cursor: String,
+        cursor: &str,
     ) -> std::result::Result<Data, reqwest::Error> {
         let limit = cmp::min(50u8, limit);
 
@@ -86,9 +86,9 @@ impl API {
 
     pub async fn search_tweets(
         &self,
-        query: String,
+        query: &str,
         limit: u8,
-        cursor: String,
+        cursor: &str,
     ) -> Result<(Vec<Tweet>, String), reqwest::Error> {
         let search_result = self.search(query, limit, cursor).await;
         let mut cursor = String::from("");

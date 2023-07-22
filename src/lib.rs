@@ -30,20 +30,20 @@ mod tests {
         dotenv::dotenv().ok();
         let name = std::env::var("TWITTER_USER_NAME").unwrap();
         let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
-        api.login(name, pwd, "".to_string()).await
+        api.login(&name, &pwd, "").await
     }
 
     async fn search(api: &mut API) -> Result<Data, reqwest::Error> {
-        let content = "@shareverse_bot -filter:retweets".to_string();
+        let content = "@shareverse_bot -filter:retweets";
         let limit = 50;
-        let cursor = "".to_string();
+        let cursor = "";
         api.search(content, limit, cursor).await
     }
 
     async fn search_tweets(api: &mut API) -> Result<(Vec<Tweet>, String), reqwest::Error> {
-        let content = "@shareverse_bot -filter:retweets".to_string();
+        let content = "@shareverse_bot -filter:retweets";
         let limit = 50;
-        let cursor = "".to_string();
+        let cursor = "";
         api.search_tweets(content, limit, cursor).await
     }
     #[tokio::test]
