@@ -2504,6 +2504,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "reverse-engineered-twitter-api"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "dotenv",
+ "ethers",
+ "eyre",
+ "log",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "rfc6979"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2869,21 +2884,6 @@ checksum = "75872d278a8f37ef87fa0ddbda7802605cb18344497949862c0d4dcb291eba60"
 dependencies = [
  "digest 0.10.7",
  "keccak",
-]
-
-[[package]]
-name = "shareverse-twitter-bot"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "dotenv",
- "ethers",
- "eyre",
- "log",
- "reqwest",
- "serde",
- "serde_json",
- "tokio",
 ]
 
 [[package]]

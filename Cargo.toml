@@ -1,5 +1,5 @@
 [package]
-name = "shareverse-twitter-bot"
+name = "reverse-engineered-twitter-api"
 version = "0.1.0"
 edition = "2021"
 
