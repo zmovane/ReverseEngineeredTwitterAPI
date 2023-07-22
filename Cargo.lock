@@ -2513,6 +2513,21 @@ dependencies = [
  "eyre",
  "log",
  "reqwest",
+ "reverse-engineered-twitter-api 0.1.1",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "reverse-engineered-twitter-api"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4caffd965f6b05a45a5899ad01b0bbd416ee86e91904079de62183bd44d87ea5"
+dependencies = [
+ "chrono",
+ "dotenv",
+ "reqwest",
  "serde",
  "serde_json",
  "tokio",
