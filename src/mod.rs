@@ -1,7 +1,6 @@
 mod auth;
 mod search;
 mod types;
-use dotenv::dotenv;
 use reqwest::Client;
 
 pub const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
@@ -28,7 +27,7 @@ mod tests {
     };
 
     async fn login(api: &mut API) -> Result<String, String> {
-        dotenv().ok();
+        dotenv::dotenv().ok();
         let name = std::env::var("TWITTER_USER_NAME").unwrap();
         let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
         api.login(name, pwd, "".to_string()).await
@@ -62,7 +61,7 @@ mod tests {
         let res = search_tweets(&mut api).await;
         assert!(res.is_ok());
 
-        let (tweets, next_cursor) = res.unwrap();
+        let (tweets, _) = res.unwrap();
         assert!(tweets.len() > 0);
     }
 }

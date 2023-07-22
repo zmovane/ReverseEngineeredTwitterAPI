@@ -1,4 +1,4 @@
-use crate::twitter::BEARER_TOKEN;
+use crate::BEARER_TOKEN;
 use serde_json::json;
 use std::cmp;
 

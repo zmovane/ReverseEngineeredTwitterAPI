@@ -1,4 +1,4 @@
-use chrono::{DateTime, FixedOffset, Utc};
+use chrono::{DateTime, FixedOffset};
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -319,7 +319,7 @@ pub struct RetweetedStatusResult {
 
 #[derive(Deserialize)]
 pub struct SelfThread {
-    id_str: String,
+    pub id_str: String,
 }
 
 #[derive(Deserialize)]

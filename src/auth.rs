@@ -5,60 +5,60 @@ use serde_json::{self, json};
 
 #[derive(Deserialize)]
 pub struct User {
-    id: i64,
-    id_str: String,
-    name: String,
-    screen_name: String,
+    pub id: i64,
+    pub id_str: String,
+    pub name: String,
+    pub screen_name: String,
 }
 #[derive(Deserialize)]
 pub struct OpenAccount {
-    user: Option<User>,
-    next_link: Option<Link>,
-    attribution_event: Option<String>,
+    pub user: Option<User>,
+    pub next_link: Option<Link>,
+    pub attribution_event: Option<String>,
 }
 
 #[derive(Deserialize)]
 pub struct Subtask {
-    subtask_id: String,
-    open_account: Option<OpenAccount>,
+    pub subtask_id: String,
+    pub open_account: Option<OpenAccount>,
 }
 
 #[derive(Deserialize)]
 pub struct ApiError {
-    code: i64,
-    message: String,
+    pub code: i64,
+    pub message: String,
 }
 
 #[derive(Deserialize)]
 pub struct Flow {
-    errors: Option<Vec<ApiError>>,
-    flow_token: String,
-    status: String,
-    subtasks: Vec<Subtask>,
-    js_instrumentation: Option<Insrumentation>,
+    pub errors: Option<Vec<ApiError>>,
+    pub flow_token: String,
+    pub status: String,
+    pub subtasks: Vec<Subtask>,
+    pub js_instrumentation: Option<Insrumentation>,
 }
 
 #[derive(Deserialize)]
 pub struct Insrumentation {
-    url: String,
-    timeout_ms: i64,
-    next_link: Link,
+    pub url: String,
+    pub timeout_ms: i64,
+    pub next_link: Link,
 }
 
 #[derive(Deserialize)]
 pub struct Link {
-    link_type: String,
-    link_id: String,
+    pub link_type: String,
+    pub link_id: String,
 }
 
 #[derive(Deserialize)]
 pub struct GuestToken {
-    guest_token: String,
+    pub guest_token: String,
 }
 
 #[derive(Deserialize)]
 pub struct VerifyCredentials {
-    errors: Option<Vec<ApiError>>,
+    pub errors: Option<Vec<ApiError>>,
 }
 
 impl API {
