@@ -3,7 +3,7 @@
 
 # ReverseEngineeredTwitterAPI
 
-Reverse engineered Twitter's API has not a lots of limitations, there is no need to worry about rate limit and payment requirements.
+Reverse engineered Twitter's API has not a lots of limitations, the rate limit is consistent with regular users logging in through the twitter website, and there is no need to consider payment issues.
 
 ## Installation
 
@@ -25,7 +25,7 @@ api.login(name, pwd, confirmation_code).await
 let is_logged_in = api.is_logged_in().await;
 
 // search tweets
-let content = "@shareverse_bot -filter:retweets".to_string();
+let content = String::from("@shareverse_bot -filter:retweets")
 let limit = 50;
 let cursor = String::from("");
 api.search_tweets(content, limit, cursor).await
