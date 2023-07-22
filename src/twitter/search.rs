@@ -1,9 +1,11 @@
+use crate::twitter::BEARER_TOKEN;
 use serde_json::json;
 use std::cmp;
 
-use crate::twitter::auth::BEARER_TOKEN;
-
-use super::{types::Data, API};
+use super::{
+    types::{parse_legacy_tweet, Data, Tweet},
+    API,
+};
 
 const SEARCH_URL: &str = "https://twitter.com/i/api/graphql/nK1dw4oV3k4w5TdtcAdSww/SearchTimeline";
 
@@ -62,7 +64,6 @@ impl API {
             ("features", features.to_string()),
             ("fieldToggles", field_toggles.to_string()),
         ];
-
         let req = self
             .client
             .get(SEARCH_URL)
@@ -79,9 +80,69 @@ impl API {
             .text()
             .await
             .unwrap();
-        println!("{:?}", text);
-
+        println!("aaa: {}", text);
         let res: Data = serde_json::from_str(&text).unwrap();
         return Ok(res);
+    }
+
+    pub async fn search_tweets(
+        &self,
+        query: String,
+        limit: u8,
+        cursor: String,
+    ) -> Result<(Vec<Tweet>, String), reqwest::Error> {
+        let search_result = self.search(query, limit, cursor).await;
+        let mut cursor = String::from("");
+        match search_result {
+            Ok(res) => {
+                let mut tweets: Vec<Tweet> = vec![];
+                for item in res
+                    .data
+                    .search_by_raw_query
+                    .search_timeline
+                    .timeline
+                    .instructions
+                    .unwrap()
+                {
+                    if item.instruction_type.ne("TimelineAddEntries")
+                        && item.instruction_type.ne("TimelineReplaceEntry")
+                    {
+                        continue;
+                    }
+                    if item.entry.is_some() {
+                        let entry = item.entry.unwrap();
+                        let cursor_type = entry.content.cursor_type.unwrap_or("".to_string());
+                        if cursor_type.eq("Bottom") {
+                            if entry.content.value.is_some() {
+                                cursor = entry.content.value.unwrap();
+                            }
+                            continue;
+                        }
+                    }
+                    for item in item.entries {
+                        if item.content.item_content.is_none() {
+                            continue;
+                        }
+                        let item = item.content.item_content.unwrap();
+                        if item.tweet_display_type.eq("Tweet") {
+                            let u = item
+                                .tweet_results
+                                .result
+                                .core
+                                .user_results
+                                .result
+                                .legacy
+                                .unwrap();
+                            let t = item.tweet_results.result.legacy;
+                            if let Some(tweet) = parse_legacy_tweet(&u, &t) {
+                                tweets.push(tweet)
+                            }
+                        }
+                    }
+                }
+                Ok((tweets, cursor))
+            }
+            Err(e) => Err(e),
+        }
     }
 }

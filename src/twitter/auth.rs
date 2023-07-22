@@ -1,16 +1,7 @@
-use reqwest::{self, Client, Error};
+use super::{API, BEARER_TOKEN, GUEST_ACTIVE_URL, LOGIN_URL, VERIFY_CREDENTIALS_URL};
+use reqwest::{self, Error};
 use serde::Deserialize;
 use serde_json::{self, json};
-
-use super::API;
-const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
-const LOGOUR_URL: &str = "https://api.twitter.com/1.1/account/logout.json";
-const GUEST_ACTIVE_URL: &str = "https://api.twitter.com/1.1/guest/activate.json";
-const VERIFY_CREDENTIALS_URL: &str = "https://api.twitter.com/1.1/account/verify_credentials.json";
-const OAUTH_URL: &str = "https://api.twitter.com/oauth2/token";
-pub const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA";
-const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
-const APP_CONSUMER_SECRET: &str = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys";
 
 #[derive(Deserialize)]
 pub struct User {
@@ -114,7 +105,6 @@ impl API {
         let res = self.get_flow(data);
         match res.await {
             Ok(info) => {
-                println!("flow token: {}", info.flow_token);
                 if info.subtasks.len() > 0 {
                     let subtask_id = info.subtasks[0].subtask_id.as_str();
                     match subtask_id {
@@ -145,7 +135,6 @@ impl API {
             Ok(r) => {
                 let op = r.json::<serde_json::Value>().await?;
                 let guest_token = op.get("guest_token").unwrap();
-                println!("guest token{}", guest_token.to_string());
                 self.guest_token = guest_token.to_string();
                 return Ok(());
             }
