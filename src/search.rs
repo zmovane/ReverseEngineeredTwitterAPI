@@ -80,7 +80,6 @@ impl API {
             .text()
             .await
             .unwrap();
-        println!("aaa: {}", text);
         let res: Data = serde_json::from_str(&text).unwrap();
         return Ok(res);
     }
