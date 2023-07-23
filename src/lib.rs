@@ -1,6 +1,6 @@
-mod auth;
-mod search;
-mod types;
+pub mod auth;
+pub mod search;
+pub mod types;
 use reqwest::Client;
 
 pub const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
@@ -13,7 +13,7 @@ pub const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6
 pub const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
 pub const APP_CONSUMER_SECRET: &str = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys";
 
-pub struct API {
+pub struct ReAPI {
     client: Client,
     guest_token: String,
     csrf_token: String,
@@ -26,29 +26,30 @@ mod tests {
         *,
     };
 
-    async fn login(api: &mut API) -> Result<String, String> {
+    async fn login(api: &mut ReAPI) -> Result<String, String> {
         dotenv::dotenv().ok();
         let name = std::env::var("TWITTER_USER_NAME").unwrap();
         let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
         api.login(&name, &pwd, "").await
     }
 
-    async fn search(api: &mut API) -> Result<Data, reqwest::Error> {
+    async fn search(api: &mut ReAPI) -> Result<Data, reqwest::Error> {
         let content = "@shareverse_bot -filter:retweets";
         let limit = 50;
         let cursor = "";
         api.search(content, limit, cursor).await
     }
 
-    async fn search_tweets(api: &mut API) -> Result<(Vec<Tweet>, String), reqwest::Error> {
+    async fn search_tweets(api: &mut ReAPI) -> Result<(Vec<Tweet>, String), reqwest::Error> {
         let content = "@shareverse_bot -filter:retweets";
         let limit = 50;
         let cursor = "";
         api.search_tweets(content, limit, cursor).await
     }
+
     #[tokio::test]
-    async fn test_login() {
-        let mut api = API::new();
+    async fn test() {
+        let mut api = ReAPI::new();
         let loggined = login(&mut api).await;
         assert!(loggined.is_ok());
 

@@ -9,7 +9,7 @@ Reverse engineered Twitter's API has not a lots of limitations, the rate limit i
 
 ```
 [dependencies]
-reverse-engineered-twitter-api = "0.1.1"
+reverse-engineered-twitter-api = "0.1.2"
 ```
 
 ## Usage
@@ -17,6 +17,7 @@ reverse-engineered-twitter-api = "0.1.1"
 #### Login
 
 ```
+let mut api = ReAPI::new();
 let name = std::env::var("TWITTER_USER_NAME").unwrap();
 let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
 

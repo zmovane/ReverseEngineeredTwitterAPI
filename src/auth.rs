@@ -1,4 +1,4 @@
-use super::{API, BEARER_TOKEN, GUEST_ACTIVE_URL, LOGIN_URL, VERIFY_CREDENTIALS_URL};
+use super::{ReAPI, BEARER_TOKEN, GUEST_ACTIVE_URL, LOGIN_URL, VERIFY_CREDENTIALS_URL};
 use reqwest::{self, Error};
 use serde::Deserialize;
 use serde_json::{self, json};
@@ -61,16 +61,16 @@ pub struct VerifyCredentials {
     pub errors: Option<Vec<ApiError>>,
 }
 
-impl API {
-    pub fn new() -> API {
+impl ReAPI {
+    pub fn new() -> ReAPI {
         let client = reqwest::ClientBuilder::new()
             .cookie_store(true)
             .build()
             .unwrap();
-        return API {
+        return ReAPI {
             client,
-            guest_token: "".to_string(),
-            csrf_token: "".to_string(),
+            csrf_token: String::from(""),
+            guest_token: String::from(""),
         };
     }
     async fn get_flow(&mut self, body: serde_json::Value) -> Result<Flow, Error> {

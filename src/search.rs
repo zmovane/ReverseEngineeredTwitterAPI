@@ -4,12 +4,12 @@ use std::cmp;
 
 use super::{
     types::{parse_legacy_tweet, Data, Tweet},
-    API,
+    ReAPI,
 };
 
 const SEARCH_URL: &str = "https://twitter.com/i/api/graphql/nK1dw4oV3k4w5TdtcAdSww/SearchTimeline";
 
-impl API {
+impl ReAPI {
     pub async fn search(
         &self,
         query: &str,
