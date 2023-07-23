@@ -1,0 +1,27 @@
+datasource db {
+    provider = "mysql"
+    url      = "mysql://root:root@localhost:3306/bot"
+}
+
+generator client {
+    // Corresponds to the cargo alias created earlier
+    provider = "cargo prisma"
+    // The location to generate the client. Is relative to the position of the schema
+    output   = "../src/prisma.rs"
+}
+
+enum CommandType {
+    NFT
+    SPACE
+}
+
+model Tweets {
+    id           String      @id
+    user_id      String
+    text         String      @db.Text
+    command      String      @db.Text
+    tweet_url    String      @db.TinyText
+    command_type CommandType
+    excuted      Boolean     @default(false)
+    date         DateTime
+}
