@@ -1,7 +1,9 @@
+use chrono::Date;
 use cmd::Cmd;
 use cmd::NFTArgs;
 use dotenv::dotenv;
 use ethers::types::H160;
+use ethers::types::U64;
 use prisma::tweets;
 use prisma::CommandType;
 use prisma::PrismaClient;
@@ -17,17 +19,6 @@ mod cmd;
 mod prisma;
 mod util;
 
-fn command_pattern() -> Regex {
-    let pattern_img_url =
-        r#"(https://t.co/[a-zA-Z0-9]{10})|(http(s?):([/|.|\w|\s|-])*.(?:jpe?g|gif|png|svg|webp))"#;
-    let pattern_address = r#"0x[a-f0-9]{40}"#;
-    let pattern_mint_cmd = format!(
-        r#"@shareverse_bot\s+(mint|MINT)?\s+({})(to|TO)?\s+({})"#,
-        pattern_img_url, pattern_address
-    );
-    Regex::new(&pattern_mint_cmd).unwrap()
-}
-
 async fn fetch_tweets(db_client: &PrismaClient) {
     let mut twitter_api = ReAPI::new();
 
@@ -40,7 +31,7 @@ async fn fetch_tweets(db_client: &PrismaClient) {
     if !logged_in {
         panic!("failed to login")
     }
-    let pattern: Regex = command_pattern();
+    let pattern: Regex = util::command_pattern();
     let q = "@shareverse_bot -filter:retweets";
     let limit = 10;
     let mut cursor = String::from("");
@@ -91,7 +82,7 @@ async fn fetch_tweets(db_client: &PrismaClient) {
 async fn excute_commands(db_client: &PrismaClient) {
     let client = util::new_client();
     let cmd = Cmd::new(client);
-    let pattern: Regex = command_pattern();
+    let pattern: Regex = util::command_pattern();
     loop {
         let tweet_lst: Vec<tweets::Data> = db_client
             .tweets()
@@ -112,12 +103,24 @@ async fn excute_commands(db_client: &PrismaClient) {
             };
             let result = cmd.mint_nft(args).await;
             match result {
-                Ok(_) => {
-                    db_client
-                        .tweets()
-                        .update(tweets::id::equals(tw.id), vec![tweets::excuted::set(true)])
-                        .exec()
-                        .await;
+                Ok(tx) => {
+                    let tx = tx.unwrap();
+                    if tx.status.is_some() && tx.status.unwrap().eq(&U64::one()) {
+                        let _ = db_client
+                            .tweets()
+                            .update(
+                                tweets::id::equals(tw.id),
+                                vec![
+                                    tweets::excuted::set(true),
+                                    tweets::excuted_date::set(
+                                        chrono::offset::Utc::now().fixed_offset(),
+                                    ),
+                                    tweets::excuted_tx::set(tx.transaction_hash.to_string()),
+                                ],
+                            )
+                            .exec()
+                            .await;
+                    }
                 }
                 Err(_) => {}
             }

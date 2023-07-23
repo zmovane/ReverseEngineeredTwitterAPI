@@ -1,11 +1,9 @@
 use ethers::{
     prelude::{abigen, SignerMiddleware},
-    providers::{Http, Provider},
+    providers::{Http, Provider, ProviderError},
     signers::LocalWallet,
-    types::{Address, H160, U256},
+    types::{Address, TransactionReceipt, H160, U256},
 };
-use eyre::Result;
-use log::error;
 use std::{str::FromStr, sync::Arc};
 
 abigen!(Space, "src/abi/space.json");
@@ -47,26 +45,24 @@ impl Cmd {
         }
     }
 
-    pub async fn mint_nft(&self, args: NFTArgs) -> Result<()> {
+    pub async fn mint_nft(
+        &self,
+        args: NFTArgs,
+    ) -> Result<Option<TransactionReceipt>, ProviderError> {
         let collection = String::from("");
-        let result = self
-            .collective
+        self.collective
             .mint_to(collection, U256::from(1), args.image.to_string(), args.to)
             .send()
-            .await?
-            .await;
-        match result {
-            Ok(_) => Ok(()),
-            Err(e) => {
-                error!("failed to mint NFT: {}", e);
-                Ok(())
-            }
-        }
+            .await
+            .unwrap()
+            .await
     }
 
-    async fn create_space(&self, args: SpaceArgs) -> Result<()> {
-        let result = self
-            .space
+    async fn create_space(
+        &self,
+        args: SpaceArgs,
+    ) -> Result<Option<TransactionReceipt>, ProviderError> {
+        self.space
             .create_gallery_to(
                 args.to,
                 H160::from_str("0").unwrap(),
@@ -80,14 +76,8 @@ impl Cmd {
                 vec![],
             )
             .send()
-            .await?
-            .await;
-        match result {
-            Ok(_) => Ok(()),
-            Err(e) => {
-                error!("failed to create Space: {}", e);
-                Ok(())
-            }
-        }
+            .await
+            .unwrap()
+            .await
     }
 }
