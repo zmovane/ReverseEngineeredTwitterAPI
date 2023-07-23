@@ -4725,25 +4725,6 @@ dependencies = [
 
 [[package]]
 name = "reverse-engineered-twitter-api"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "dotenv",
- "ethers",
- "eyre",
- "log",
- "prisma-client-rust",
- "prisma-client-rust-cli",
- "regex",
- "reqwest",
- "reverse-engineered-twitter-api 0.1.2",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
-name = "reverse-engineered-twitter-api"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "58ee1e55134ebcacc980378424f8763bc19e850d25377b749a023609a0ea54f7"
@@ -5376,6 +5357,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "900fba806f70c630b0a382d0d825e17a0f19fcd059a2ade1ff237bcddf446b31"
 dependencies = [
  "lazy_static",
+]
+
+[[package]]
+name = "shareverse-bot"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "dotenv",
+ "ethers",
+ "eyre",
+ "log",
+ "prisma-client-rust",
+ "prisma-client-rust-cli",
+ "regex",
+ "reqwest",
+ "reverse-engineered-twitter-api",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
