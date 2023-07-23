@@ -403,63 +403,6 @@ pub mod tweets {
             }
         }
     }
-    pub mod excuted {
-        use super::super::*;
-        use super::_prisma::*;
-        use super::{
-            OrderByParam, SetParam, UncheckedSetParam, UniqueWhereParam, WhereParam, WithParam,
-        };
-        pub const NAME: &str = "excuted";
-        pub struct Set(pub bool);
-        impl From<Set> for SetParam {
-            fn from(Set(v): Set) -> Self {
-                Self::SetExcuted(v)
-            }
-        }
-        impl From<Set> for UncheckedSetParam {
-            fn from(Set(v): Set) -> Self {
-                Self::Excuted(v)
-            }
-        }
-        pub fn set<T: From<Set>>(value: bool) -> T {
-            Set(value).into()
-        }
-        pub fn order(direction: ::prisma_client_rust::Direction) -> OrderByParam {
-            OrderByParam::Excuted(direction)
-        }
-        pub fn equals(value: bool) -> WhereParam {
-            WhereParam::Excuted(_prisma::read_filters::BoolFilter::Equals(value))
-        }
-        ::prisma_client_rust::scalar_where_param_fns!(
-            _prisma::read_filters::BoolFilter,
-            Excuted,
-            {
-                fn not(_: bool) -> Not;
-            }
-        );
-        pub struct Include;
-        impl Into<super::IncludeParam> for Include {
-            fn into(self) -> super::IncludeParam {
-                super::IncludeParam::Excuted(self)
-            }
-        }
-        impl Include {
-            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
-                ::prisma_client_rust::sel(NAME)
-            }
-        }
-        pub struct Select;
-        impl Into<super::SelectParam> for Select {
-            fn into(self) -> super::SelectParam {
-                super::SelectParam::Excuted(self)
-            }
-        }
-        impl Select {
-            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
-                ::prisma_client_rust::sel(NAME)
-            }
-        }
-    }
     pub mod date {
         use super::super::*;
         use super::_prisma::*;
@@ -565,6 +508,234 @@ pub mod tweets {
             }
         }
     }
+    pub mod excuted {
+        use super::super::*;
+        use super::_prisma::*;
+        use super::{
+            OrderByParam, SetParam, UncheckedSetParam, UniqueWhereParam, WhereParam, WithParam,
+        };
+        pub const NAME: &str = "excuted";
+        pub struct Set(pub bool);
+        impl From<Set> for SetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::SetExcuted(v)
+            }
+        }
+        impl From<Set> for UncheckedSetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::Excuted(v)
+            }
+        }
+        pub fn set<T: From<Set>>(value: bool) -> T {
+            Set(value).into()
+        }
+        pub fn order(direction: ::prisma_client_rust::Direction) -> OrderByParam {
+            OrderByParam::Excuted(direction)
+        }
+        pub fn equals(value: bool) -> WhereParam {
+            WhereParam::Excuted(_prisma::read_filters::BoolFilter::Equals(value))
+        }
+        ::prisma_client_rust::scalar_where_param_fns!(
+            _prisma::read_filters::BoolFilter,
+            Excuted,
+            {
+                fn not(_: bool) -> Not;
+            }
+        );
+        pub struct Include;
+        impl Into<super::IncludeParam> for Include {
+            fn into(self) -> super::IncludeParam {
+                super::IncludeParam::Excuted(self)
+            }
+        }
+        impl Include {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+        pub struct Select;
+        impl Into<super::SelectParam> for Select {
+            fn into(self) -> super::SelectParam {
+                super::SelectParam::Excuted(self)
+            }
+        }
+        impl Select {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+    }
+    pub mod excuted_tx {
+        use super::super::*;
+        use super::_prisma::*;
+        use super::{
+            OrderByParam, SetParam, UncheckedSetParam, UniqueWhereParam, WhereParam, WithParam,
+        };
+        pub const NAME: &str = "excuted_tx";
+        pub struct Set(pub String);
+        impl From<Set> for SetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::SetExcutedTx(v)
+            }
+        }
+        impl From<Set> for UncheckedSetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::ExcutedTx(v)
+            }
+        }
+        pub fn set<T: From<Set>>(value: String) -> T {
+            Set(value).into()
+        }
+        pub fn order(direction: ::prisma_client_rust::Direction) -> OrderByParam {
+            OrderByParam::ExcutedTx(direction)
+        }
+        pub fn equals(value: String) -> WhereParam {
+            WhereParam::ExcutedTx(_prisma::read_filters::StringFilter::Equals(value))
+        }
+        ::prisma_client_rust::scalar_where_param_fns!(
+            _prisma::read_filters::StringFilter,
+            ExcutedTx,
+            {
+                fn in_vec(_: Vec<String>) -> InVec;
+                fn not_in_vec(_: Vec<String>) -> NotInVec;
+                fn lt(_: String) -> Lt;
+                fn lte(_: String) -> Lte;
+                fn gt(_: String) -> Gt;
+                fn gte(_: String) -> Gte;
+                fn contains(_: String) -> Contains;
+                fn starts_with(_: String) -> StartsWith;
+                fn ends_with(_: String) -> EndsWith;
+                fn not(_: String) -> Not;
+            }
+        );
+        pub struct Include;
+        impl Into<super::IncludeParam> for Include {
+            fn into(self) -> super::IncludeParam {
+                super::IncludeParam::ExcutedTx(self)
+            }
+        }
+        impl Include {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+        pub struct Select;
+        impl Into<super::SelectParam> for Select {
+            fn into(self) -> super::SelectParam {
+                super::SelectParam::ExcutedTx(self)
+            }
+        }
+        impl Select {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+    }
+    pub mod excuted_date {
+        use super::super::*;
+        use super::_prisma::*;
+        use super::{
+            OrderByParam, SetParam, UncheckedSetParam, UniqueWhereParam, WhereParam, WithParam,
+        };
+        pub const NAME: &str = "excuted_date";
+        pub struct Set(
+            pub ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
+        );
+        impl From<Set> for SetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::SetExcutedDate(v)
+            }
+        }
+        impl From<Set> for UncheckedSetParam {
+            fn from(Set(v): Set) -> Self {
+                Self::ExcutedDate(v)
+            }
+        }
+        pub fn set<T: From<Set>>(
+            value: ::prisma_client_rust::chrono::DateTime<
+                ::prisma_client_rust::chrono::FixedOffset,
+            >,
+        ) -> T {
+            Set(value).into()
+        }
+        pub fn order(direction: ::prisma_client_rust::Direction) -> OrderByParam {
+            OrderByParam::ExcutedDate(direction)
+        }
+        pub fn equals(
+            value: ::prisma_client_rust::chrono::DateTime<
+                ::prisma_client_rust::chrono::FixedOffset,
+            >,
+        ) -> WhereParam {
+            WhereParam::ExcutedDate(_prisma::read_filters::DateTimeFilter::Equals(value))
+        }
+        ::prisma_client_rust::scalar_where_param_fns!(
+            _prisma::read_filters::DateTimeFilter,
+            ExcutedDate,
+            {
+                fn in_vec(
+                    _: Vec<
+                        ::prisma_client_rust::chrono::DateTime<
+                            ::prisma_client_rust::chrono::FixedOffset,
+                        >,
+                    >,
+                ) -> InVec;
+                fn not_in_vec(
+                    _: Vec<
+                        ::prisma_client_rust::chrono::DateTime<
+                            ::prisma_client_rust::chrono::FixedOffset,
+                        >,
+                    >,
+                ) -> NotInVec;
+                fn lt(
+                    _: ::prisma_client_rust::chrono::DateTime<
+                        ::prisma_client_rust::chrono::FixedOffset,
+                    >,
+                ) -> Lt;
+                fn lte(
+                    _: ::prisma_client_rust::chrono::DateTime<
+                        ::prisma_client_rust::chrono::FixedOffset,
+                    >,
+                ) -> Lte;
+                fn gt(
+                    _: ::prisma_client_rust::chrono::DateTime<
+                        ::prisma_client_rust::chrono::FixedOffset,
+                    >,
+                ) -> Gt;
+                fn gte(
+                    _: ::prisma_client_rust::chrono::DateTime<
+                        ::prisma_client_rust::chrono::FixedOffset,
+                    >,
+                ) -> Gte;
+                fn not(
+                    _: ::prisma_client_rust::chrono::DateTime<
+                        ::prisma_client_rust::chrono::FixedOffset,
+                    >,
+                ) -> Not;
+            }
+        );
+        pub struct Include;
+        impl Into<super::IncludeParam> for Include {
+            fn into(self) -> super::IncludeParam {
+                super::IncludeParam::ExcutedDate(self)
+            }
+        }
+        impl Include {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+        pub struct Select;
+        impl Into<super::SelectParam> for Select {
+            fn into(self) -> super::SelectParam {
+                super::SelectParam::ExcutedDate(self)
+            }
+        }
+        impl Select {
+            pub fn to_selection(self) -> ::prisma_client_rust::Selection {
+                ::prisma_client_rust::sel(NAME)
+            }
+        }
+    }
     pub fn create(
         id: String,
         user_id: String,
@@ -626,7 +797,7 @@ pub mod tweets {
         )
     }
     #[macro_export]
-    macro_rules ! _select_tweets { ($ (($ ($ func_arg : ident : $ func_arg_ty : ty) , +) =>) ? $ module_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { # [allow (warnings)] pub mod $ module_name { crate :: prisma :: tweets :: select ! (@ definitions ; $ module_name ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; use super :: * ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: SelectType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } pub fn select ($ ($ ($ func_arg : $ func_arg_ty) , +) ?) -> Selection { Selection ([crate :: prisma :: tweets :: select ! (@ selections_to_params ; : select { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () ,] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } } ; ({ $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { { crate :: prisma :: tweets :: select ! (@ definitions ; ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: SelectType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } Selection ([crate :: prisma :: tweets :: select ! (@ selections_to_params ; : select { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () ,] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } ; (@ definitions ; $ ($ module_name : ident) ? ; $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) +) => { # [allow (warnings)] enum Fields { id , user_id , text , command , tweet_url , command_type , excuted , date } # [allow (warnings)] impl Fields { fn selections () { $ (let _ = Fields :: $ field ;) + } } # [allow (warnings)] # [derive (std :: fmt :: Debug , Clone)] pub struct Data { $ (pub $ field : crate :: prisma :: tweets :: select ! (@ field_type ; $ field $ (: $ selection_mode { $ ($ selections) + }) ?) ,) + } impl :: serde :: Serialize for Data { fn serialize < S > (& self , serializer : S) -> Result < S :: Ok , S :: Error > where S : :: serde :: Serializer , { use :: serde :: ser :: SerializeStruct ; let mut state = serializer . serialize_struct ("Data" , [$ (stringify ! ($ field) ,) +] . len ()) ? ; $ (state . serialize_field (crate :: prisma :: tweets :: $ field :: NAME , & self . $ field) ? ;) * state . end () } } impl < 'de > :: serde :: Deserialize < 'de > for Data { fn deserialize < D > (deserializer : D) -> Result < Self , D :: Error > where D : :: serde :: Deserializer < 'de > , { # [allow (warnings)] enum Field { $ ($ field) , + , } impl < 'de > :: serde :: Deserialize < 'de > for Field { fn deserialize < D > (deserializer : D) -> Result < Field , D :: Error > where D : :: serde :: Deserializer < 'de > , { struct FieldVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for FieldVisitor { type Value = Field ; fn expecting (& self , formatter : & mut :: std :: fmt :: Formatter) -> :: std :: fmt :: Result { formatter . write_str (& [$ (crate :: prisma :: tweets :: $ field :: NAME) , + ,] . into_iter () . collect :: < Vec < _ >> () . join (", ")) } fn visit_str < E > (self , value : & str) -> Result < Field , E > where E : :: serde :: de :: Error , { match value { $ (crate :: prisma :: tweets :: $ field :: NAME => Ok (Field :: $ field)) , * , _ => Err (:: serde :: de :: Error :: unknown_field (value , FIELDS)) , } } } deserializer . deserialize_identifier (FieldVisitor) } } struct DataVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for DataVisitor { type Value = Data ; fn expecting (& self , formatter : & mut std :: fmt :: Formatter) -> std :: fmt :: Result { formatter . write_str ("struct Data") } fn visit_map < V > (self , mut map : V) -> Result < Data , V :: Error > where V : :: serde :: de :: MapAccess < 'de > , { $ (let mut $ field = None ;) * while let Some (key) = map . next_key () ? { match key { $ (Field :: $ field => { if $ field . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: $ field :: NAME)) ; } $ field = Some (map . next_value () ?) ; }) * } } $ (let $ field = $ field . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: $ field :: NAME)) ? ;) * Ok (Data { $ ($ field) , * }) } } const FIELDS : & 'static [& 'static str] = & ["id" , "user_id" , "text" , "command" , "tweet_url" , "command_type" , "excuted" , "date"] ; deserializer . deserialize_struct ("Data" , FIELDS , DataVisitor) } } $ ($ (pub mod $ field { crate :: prisma :: tweets :: $ selection_mode ! (@ field_module ; $ field : $ selection_mode { $ ($ selections) + }) ; }) ?) + } ; (@ field_type ; id) => { String } ; (@ field_type ; user_id) => { String } ; (@ field_type ; text) => { String } ; (@ field_type ; command) => { String } ; (@ field_type ; tweet_url) => { String } ; (@ field_type ; command_type) => { crate :: prisma :: CommandType } ; (@ field_type ; excuted) => { bool } ; (@ field_type ; date) => { :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > } ; (@ field_type ; $ field : ident $ ($ tokens : tt) *) => { compile_error ! (stringify ! (Cannot include nonexistent relation $ field on model "Tweets" , available relations are "id, user_id, text, command, tweet_url, command_type, excuted, date")) } ; (@ field_module ; $ ($ tokens : tt) *) => { } ; (@ selection_field_to_selection_param ; id) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: id :: Select) } ; (@ selection_field_to_selection_param ; user_id) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: user_id :: Select) } ; (@ selection_field_to_selection_param ; text) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: text :: Select) } ; (@ selection_field_to_selection_param ; command) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: command :: Select) } ; (@ selection_field_to_selection_param ; tweet_url) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: tweet_url :: Select) } ; (@ selection_field_to_selection_param ; command_type) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: command_type :: Select) } ; (@ selection_field_to_selection_param ; excuted) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: excuted :: Select) } ; (@ selection_field_to_selection_param ; date) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: date :: Select) } ; (@ selection_field_to_selection_param ; $ ($ tokens : tt) *) => { compile_error ! (stringify ! ($ ($ tokens) *)) } ; (@ selections_to_params ; : $ macro_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { [$ (crate :: prisma :: tweets :: $ macro_name ! (@ selection_field_to_selection_param ; $ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) ,) +] } ; (@ filters_to_args ;) => { vec ! [] } ; (@ filters_to_args ; $ ($ t : tt) *) => { $ ($ t) * } ; (@ field_serde_name ; id) => { "id" } ; (@ field_serde_name ; user_id) => { "user_id" } ; (@ field_serde_name ; text) => { "text" } ; (@ field_serde_name ; command) => { "command" } ; (@ field_serde_name ; tweet_url) => { "tweet_url" } ; (@ field_serde_name ; command_type) => { "command_type" } ; (@ field_serde_name ; excuted) => { "excuted" } ; (@ field_serde_name ; date) => { "date" } ; }
+    macro_rules ! _select_tweets { ($ (($ ($ func_arg : ident : $ func_arg_ty : ty) , +) =>) ? $ module_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { # [allow (warnings)] pub mod $ module_name { crate :: prisma :: tweets :: select ! (@ definitions ; $ module_name ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; use super :: * ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: SelectType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } pub fn select ($ ($ ($ func_arg : $ func_arg_ty) , +) ?) -> Selection { Selection ([crate :: prisma :: tweets :: select ! (@ selections_to_params ; : select { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () ,] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } } ; ({ $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { { crate :: prisma :: tweets :: select ! (@ definitions ; ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: SelectType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } Selection ([crate :: prisma :: tweets :: select ! (@ selections_to_params ; : select { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () ,] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } ; (@ definitions ; $ ($ module_name : ident) ? ; $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) +) => { # [allow (warnings)] enum Fields { id , user_id , text , command , tweet_url , command_type , date , excuted , excuted_tx , excuted_date } # [allow (warnings)] impl Fields { fn selections () { $ (let _ = Fields :: $ field ;) + } } # [allow (warnings)] # [derive (std :: fmt :: Debug , Clone)] pub struct Data { $ (pub $ field : crate :: prisma :: tweets :: select ! (@ field_type ; $ field $ (: $ selection_mode { $ ($ selections) + }) ?) ,) + } impl :: serde :: Serialize for Data { fn serialize < S > (& self , serializer : S) -> Result < S :: Ok , S :: Error > where S : :: serde :: Serializer , { use :: serde :: ser :: SerializeStruct ; let mut state = serializer . serialize_struct ("Data" , [$ (stringify ! ($ field) ,) +] . len ()) ? ; $ (state . serialize_field (crate :: prisma :: tweets :: $ field :: NAME , & self . $ field) ? ;) * state . end () } } impl < 'de > :: serde :: Deserialize < 'de > for Data { fn deserialize < D > (deserializer : D) -> Result < Self , D :: Error > where D : :: serde :: Deserializer < 'de > , { # [allow (warnings)] enum Field { $ ($ field) , + , } impl < 'de > :: serde :: Deserialize < 'de > for Field { fn deserialize < D > (deserializer : D) -> Result < Field , D :: Error > where D : :: serde :: Deserializer < 'de > , { struct FieldVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for FieldVisitor { type Value = Field ; fn expecting (& self , formatter : & mut :: std :: fmt :: Formatter) -> :: std :: fmt :: Result { formatter . write_str (& [$ (crate :: prisma :: tweets :: $ field :: NAME) , + ,] . into_iter () . collect :: < Vec < _ >> () . join (", ")) } fn visit_str < E > (self , value : & str) -> Result < Field , E > where E : :: serde :: de :: Error , { match value { $ (crate :: prisma :: tweets :: $ field :: NAME => Ok (Field :: $ field)) , * , _ => Err (:: serde :: de :: Error :: unknown_field (value , FIELDS)) , } } } deserializer . deserialize_identifier (FieldVisitor) } } struct DataVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for DataVisitor { type Value = Data ; fn expecting (& self , formatter : & mut std :: fmt :: Formatter) -> std :: fmt :: Result { formatter . write_str ("struct Data") } fn visit_map < V > (self , mut map : V) -> Result < Data , V :: Error > where V : :: serde :: de :: MapAccess < 'de > , { $ (let mut $ field = None ;) * while let Some (key) = map . next_key () ? { match key { $ (Field :: $ field => { if $ field . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: $ field :: NAME)) ; } $ field = Some (map . next_value () ?) ; }) * } } $ (let $ field = $ field . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: $ field :: NAME)) ? ;) * Ok (Data { $ ($ field) , * }) } } const FIELDS : & 'static [& 'static str] = & ["id" , "user_id" , "text" , "command" , "tweet_url" , "command_type" , "date" , "excuted" , "excuted_tx" , "excuted_date"] ; deserializer . deserialize_struct ("Data" , FIELDS , DataVisitor) } } $ ($ (pub mod $ field { crate :: prisma :: tweets :: $ selection_mode ! (@ field_module ; $ field : $ selection_mode { $ ($ selections) + }) ; }) ?) + } ; (@ field_type ; id) => { String } ; (@ field_type ; user_id) => { String } ; (@ field_type ; text) => { String } ; (@ field_type ; command) => { String } ; (@ field_type ; tweet_url) => { String } ; (@ field_type ; command_type) => { crate :: prisma :: CommandType } ; (@ field_type ; date) => { :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > } ; (@ field_type ; excuted) => { bool } ; (@ field_type ; excuted_tx) => { String } ; (@ field_type ; excuted_date) => { :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > } ; (@ field_type ; $ field : ident $ ($ tokens : tt) *) => { compile_error ! (stringify ! (Cannot include nonexistent relation $ field on model "Tweets" , available relations are "id, user_id, text, command, tweet_url, command_type, date, excuted, excuted_tx, excuted_date")) } ; (@ field_module ; $ ($ tokens : tt) *) => { } ; (@ selection_field_to_selection_param ; id) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: id :: Select) } ; (@ selection_field_to_selection_param ; user_id) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: user_id :: Select) } ; (@ selection_field_to_selection_param ; text) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: text :: Select) } ; (@ selection_field_to_selection_param ; command) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: command :: Select) } ; (@ selection_field_to_selection_param ; tweet_url) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: tweet_url :: Select) } ; (@ selection_field_to_selection_param ; command_type) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: command_type :: Select) } ; (@ selection_field_to_selection_param ; date) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: date :: Select) } ; (@ selection_field_to_selection_param ; excuted) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: excuted :: Select) } ; (@ selection_field_to_selection_param ; excuted_tx) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: excuted_tx :: Select) } ; (@ selection_field_to_selection_param ; excuted_date) => { Into :: < crate :: prisma :: tweets :: SelectParam > :: into (crate :: prisma :: tweets :: excuted_date :: Select) } ; (@ selection_field_to_selection_param ; $ ($ tokens : tt) *) => { compile_error ! (stringify ! ($ ($ tokens) *)) } ; (@ selections_to_params ; : $ macro_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { [$ (crate :: prisma :: tweets :: $ macro_name ! (@ selection_field_to_selection_param ; $ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) ,) +] } ; (@ filters_to_args ;) => { vec ! [] } ; (@ filters_to_args ; $ ($ t : tt) *) => { $ ($ t) * } ; (@ field_serde_name ; id) => { "id" } ; (@ field_serde_name ; user_id) => { "user_id" } ; (@ field_serde_name ; text) => { "text" } ; (@ field_serde_name ; command) => { "command" } ; (@ field_serde_name ; tweet_url) => { "tweet_url" } ; (@ field_serde_name ; command_type) => { "command_type" } ; (@ field_serde_name ; date) => { "date" } ; (@ field_serde_name ; excuted) => { "excuted" } ; (@ field_serde_name ; excuted_tx) => { "excuted_tx" } ; (@ field_serde_name ; excuted_date) => { "excuted_date" } ; }
     pub use _select_tweets as select;
     pub enum SelectParam {
         Id(id::Select),
@@ -635,8 +806,10 @@ pub mod tweets {
         Command(command::Select),
         TweetUrl(tweet_url::Select),
         CommandType(command_type::Select),
-        Excuted(excuted::Select),
         Date(date::Select),
+        Excuted(excuted::Select),
+        ExcutedTx(excuted_tx::Select),
+        ExcutedDate(excuted_date::Select),
     }
     impl SelectParam {
         pub fn to_selection(self) -> ::prisma_client_rust::Selection {
@@ -647,13 +820,15 @@ pub mod tweets {
                 Self::Command(data) => data.to_selection(),
                 Self::TweetUrl(data) => data.to_selection(),
                 Self::CommandType(data) => data.to_selection(),
-                Self::Excuted(data) => data.to_selection(),
                 Self::Date(data) => data.to_selection(),
+                Self::Excuted(data) => data.to_selection(),
+                Self::ExcutedTx(data) => data.to_selection(),
+                Self::ExcutedDate(data) => data.to_selection(),
             }
         }
     }
     #[macro_export]
-    macro_rules ! _include_tweets { ($ (($ ($ func_arg : ident : $ func_arg_ty : ty) , +) =>) ? $ module_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { # [allow (warnings)] pub mod $ module_name { crate :: prisma :: tweets :: include ! (@ definitions ; $ module_name ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; use super :: * ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: IncludeType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } pub fn include ($ ($ ($ func_arg : $ func_arg_ty) , +) ?) -> Selection { Selection ([crate :: prisma :: tweets :: include ! (@ selections_to_params ; : include { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () , < crate :: prisma :: tweets :: Types as :: prisma_client_rust :: ModelTypes > :: scalar_selections ()] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } } ; ({ $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { { crate :: prisma :: tweets :: include ! (@ definitions ; ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: IncludeType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } Selection ([crate :: prisma :: tweets :: include ! (@ selections_to_params ; : include { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () , < crate :: prisma :: tweets :: Types as :: prisma_client_rust :: ModelTypes > :: scalar_selections ()] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } ; (@ definitions ; $ ($ module_name : ident) ? ; $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) +) => { # [allow (warnings)] enum Fields { } # [allow (warnings)] impl Fields { fn selections () { $ (let _ = Fields :: $ field ;) + } } # [allow (warnings)] # [derive (std :: fmt :: Debug , Clone)] pub struct Data { pub id : String , pub user_id : String , pub text : String , pub command : String , pub tweet_url : String , pub command_type : crate :: prisma :: CommandType , pub excuted : bool , pub date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > , $ (pub $ field : crate :: prisma :: tweets :: include ! (@ field_type ; $ field $ (: $ selection_mode { $ ($ selections) + }) ?) ,) + } impl :: serde :: Serialize for Data { fn serialize < S > (& self , serializer : S) -> Result < S :: Ok , S :: Error > where S : :: serde :: Serializer , { use :: serde :: ser :: SerializeStruct ; let mut state = serializer . serialize_struct ("Data" , [$ (stringify ! ($ field) ,) + stringify ! (id) , stringify ! (user_id) , stringify ! (text) , stringify ! (command) , stringify ! (tweet_url) , stringify ! (command_type) , stringify ! (excuted) , stringify ! (date)] . len ()) ? ; $ (state . serialize_field (crate :: prisma :: tweets :: $ field :: NAME , & self . $ field) ? ;) * state . serialize_field (crate :: prisma :: tweets :: id :: NAME , & self . id) ? ; state . serialize_field (crate :: prisma :: tweets :: user_id :: NAME , & self . user_id) ? ; state . serialize_field (crate :: prisma :: tweets :: text :: NAME , & self . text) ? ; state . serialize_field (crate :: prisma :: tweets :: command :: NAME , & self . command) ? ; state . serialize_field (crate :: prisma :: tweets :: tweet_url :: NAME , & self . tweet_url) ? ; state . serialize_field (crate :: prisma :: tweets :: command_type :: NAME , & self . command_type) ? ; state . serialize_field (crate :: prisma :: tweets :: excuted :: NAME , & self . excuted) ? ; state . serialize_field (crate :: prisma :: tweets :: date :: NAME , & self . date) ? ; state . end () } } impl < 'de > :: serde :: Deserialize < 'de > for Data { fn deserialize < D > (deserializer : D) -> Result < Self , D :: Error > where D : :: serde :: Deserializer < 'de > , { # [allow (warnings)] enum Field { $ ($ field) , + , id , user_id , text , command , tweet_url , command_type , excuted , date } impl < 'de > :: serde :: Deserialize < 'de > for Field { fn deserialize < D > (deserializer : D) -> Result < Field , D :: Error > where D : :: serde :: Deserializer < 'de > , { struct FieldVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for FieldVisitor { type Value = Field ; fn expecting (& self , formatter : & mut :: std :: fmt :: Formatter) -> :: std :: fmt :: Result { formatter . write_str (& [$ (crate :: prisma :: tweets :: $ field :: NAME) , + , crate :: prisma :: tweets :: id :: NAME , crate :: prisma :: tweets :: user_id :: NAME , crate :: prisma :: tweets :: text :: NAME , crate :: prisma :: tweets :: command :: NAME , crate :: prisma :: tweets :: tweet_url :: NAME , crate :: prisma :: tweets :: command_type :: NAME , crate :: prisma :: tweets :: excuted :: NAME , crate :: prisma :: tweets :: date :: NAME] . into_iter () . collect :: < Vec < _ >> () . join (", ")) } fn visit_str < E > (self , value : & str) -> Result < Field , E > where E : :: serde :: de :: Error , { match value { $ (crate :: prisma :: tweets :: $ field :: NAME => Ok (Field :: $ field)) , * , crate :: prisma :: tweets :: id :: NAME => Ok (Field :: id) , crate :: prisma :: tweets :: user_id :: NAME => Ok (Field :: user_id) , crate :: prisma :: tweets :: text :: NAME => Ok (Field :: text) , crate :: prisma :: tweets :: command :: NAME => Ok (Field :: command) , crate :: prisma :: tweets :: tweet_url :: NAME => Ok (Field :: tweet_url) , crate :: prisma :: tweets :: command_type :: NAME => Ok (Field :: command_type) , crate :: prisma :: tweets :: excuted :: NAME => Ok (Field :: excuted) , crate :: prisma :: tweets :: date :: NAME => Ok (Field :: date) , _ => Err (:: serde :: de :: Error :: unknown_field (value , FIELDS)) , } } } deserializer . deserialize_identifier (FieldVisitor) } } struct DataVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for DataVisitor { type Value = Data ; fn expecting (& self , formatter : & mut std :: fmt :: Formatter) -> std :: fmt :: Result { formatter . write_str ("struct Data") } fn visit_map < V > (self , mut map : V) -> Result < Data , V :: Error > where V : :: serde :: de :: MapAccess < 'de > , { $ (let mut $ field = None ;) * let mut id = None ; let mut user_id = None ; let mut text = None ; let mut command = None ; let mut tweet_url = None ; let mut command_type = None ; let mut excuted = None ; let mut date = None ; while let Some (key) = map . next_key () ? { match key { Field :: id => { if id . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: id :: NAME)) ; } id = Some (map . next_value () ?) ; } Field :: user_id => { if user_id . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: user_id :: NAME)) ; } user_id = Some (map . next_value () ?) ; } Field :: text => { if text . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: text :: NAME)) ; } text = Some (map . next_value () ?) ; } Field :: command => { if command . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: command :: NAME)) ; } command = Some (map . next_value () ?) ; } Field :: tweet_url => { if tweet_url . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: tweet_url :: NAME)) ; } tweet_url = Some (map . next_value () ?) ; } Field :: command_type => { if command_type . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: command_type :: NAME)) ; } command_type = Some (map . next_value () ?) ; } Field :: excuted => { if excuted . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: excuted :: NAME)) ; } excuted = Some (map . next_value () ?) ; } Field :: date => { if date . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: date :: NAME)) ; } date = Some (map . next_value () ?) ; } $ (Field :: $ field => { if $ field . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: $ field :: NAME)) ; } $ field = Some (map . next_value () ?) ; }) * } } $ (let $ field = $ field . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: $ field :: NAME)) ? ;) * let id = id . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: id :: NAME)) ? ; let user_id = user_id . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: user_id :: NAME)) ? ; let text = text . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: text :: NAME)) ? ; let command = command . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: command :: NAME)) ? ; let tweet_url = tweet_url . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: tweet_url :: NAME)) ? ; let command_type = command_type . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: command_type :: NAME)) ? ; let excuted = excuted . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: excuted :: NAME)) ? ; let date = date . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: date :: NAME)) ? ; Ok (Data { id , user_id , text , command , tweet_url , command_type , excuted , date , $ ($ field) , * }) } } const FIELDS : & 'static [& 'static str] = & ["id" , "user_id" , "text" , "command" , "tweet_url" , "command_type" , "excuted" , "date"] ; deserializer . deserialize_struct ("Data" , FIELDS , DataVisitor) } } $ ($ (pub mod $ field { crate :: prisma :: tweets :: $ selection_mode ! (@ field_module ; $ field : $ selection_mode { $ ($ selections) + }) ; }) ?) + } ; (@ field_type ; $ field : ident $ ($ tokens : tt) *) => { compile_error ! (stringify ! (Cannot include nonexistent relation $ field on model "Tweets" , available relations are "")) } ; (@ field_module ; $ ($ tokens : tt) *) => { } ; (@ selection_field_to_selection_param ; $ ($ tokens : tt) *) => { compile_error ! (stringify ! ($ ($ tokens) *)) } ; (@ selections_to_params ; : $ macro_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { [$ (crate :: prisma :: tweets :: $ macro_name ! (@ selection_field_to_selection_param ; $ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) ,) +] } ; (@ filters_to_args ;) => { vec ! [] } ; (@ filters_to_args ; $ ($ t : tt) *) => { $ ($ t) * } ; (@ field_serde_name ; id) => { "id" } ; (@ field_serde_name ; user_id) => { "user_id" } ; (@ field_serde_name ; text) => { "text" } ; (@ field_serde_name ; command) => { "command" } ; (@ field_serde_name ; tweet_url) => { "tweet_url" } ; (@ field_serde_name ; command_type) => { "command_type" } ; (@ field_serde_name ; excuted) => { "excuted" } ; (@ field_serde_name ; date) => { "date" } ; }
+    macro_rules ! _include_tweets { ($ (($ ($ func_arg : ident : $ func_arg_ty : ty) , +) =>) ? $ module_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { # [allow (warnings)] pub mod $ module_name { crate :: prisma :: tweets :: include ! (@ definitions ; $ module_name ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; use super :: * ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: IncludeType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } pub fn include ($ ($ ($ func_arg : $ func_arg_ty) , +) ?) -> Selection { Selection ([crate :: prisma :: tweets :: include ! (@ selections_to_params ; : include { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () , < crate :: prisma :: tweets :: Types as :: prisma_client_rust :: ModelTypes > :: scalar_selections ()] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } } ; ({ $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { { crate :: prisma :: tweets :: include ! (@ definitions ; ; $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) +) ; pub struct Selection (Vec < :: prisma_client_rust :: Selection >) ; impl :: prisma_client_rust :: IncludeType for Selection { type Data = Data ; type ModelData = crate :: prisma :: tweets :: Data ; fn to_selections (self) -> Vec < :: prisma_client_rust :: Selection > { self . 0 } } Selection ([crate :: prisma :: tweets :: include ! (@ selections_to_params ; : include { $ ($ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) + }) . into_iter () . map (| p | p . to_selection ()) . collect :: < Vec < _ >> () , < crate :: prisma :: tweets :: Types as :: prisma_client_rust :: ModelTypes > :: scalar_selections ()] . into_iter () . flatten () . collect :: < Vec < _ >> ()) } } ; (@ definitions ; $ ($ module_name : ident) ? ; $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) +) => { # [allow (warnings)] enum Fields { } # [allow (warnings)] impl Fields { fn selections () { $ (let _ = Fields :: $ field ;) + } } # [allow (warnings)] # [derive (std :: fmt :: Debug , Clone)] pub struct Data { pub id : String , pub user_id : String , pub text : String , pub command : String , pub tweet_url : String , pub command_type : crate :: prisma :: CommandType , pub date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > , pub excuted : bool , pub excuted_tx : String , pub excuted_date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > , $ (pub $ field : crate :: prisma :: tweets :: include ! (@ field_type ; $ field $ (: $ selection_mode { $ ($ selections) + }) ?) ,) + } impl :: serde :: Serialize for Data { fn serialize < S > (& self , serializer : S) -> Result < S :: Ok , S :: Error > where S : :: serde :: Serializer , { use :: serde :: ser :: SerializeStruct ; let mut state = serializer . serialize_struct ("Data" , [$ (stringify ! ($ field) ,) + stringify ! (id) , stringify ! (user_id) , stringify ! (text) , stringify ! (command) , stringify ! (tweet_url) , stringify ! (command_type) , stringify ! (date) , stringify ! (excuted) , stringify ! (excuted_tx) , stringify ! (excuted_date)] . len ()) ? ; $ (state . serialize_field (crate :: prisma :: tweets :: $ field :: NAME , & self . $ field) ? ;) * state . serialize_field (crate :: prisma :: tweets :: id :: NAME , & self . id) ? ; state . serialize_field (crate :: prisma :: tweets :: user_id :: NAME , & self . user_id) ? ; state . serialize_field (crate :: prisma :: tweets :: text :: NAME , & self . text) ? ; state . serialize_field (crate :: prisma :: tweets :: command :: NAME , & self . command) ? ; state . serialize_field (crate :: prisma :: tweets :: tweet_url :: NAME , & self . tweet_url) ? ; state . serialize_field (crate :: prisma :: tweets :: command_type :: NAME , & self . command_type) ? ; state . serialize_field (crate :: prisma :: tweets :: date :: NAME , & self . date) ? ; state . serialize_field (crate :: prisma :: tweets :: excuted :: NAME , & self . excuted) ? ; state . serialize_field (crate :: prisma :: tweets :: excuted_tx :: NAME , & self . excuted_tx) ? ; state . serialize_field (crate :: prisma :: tweets :: excuted_date :: NAME , & self . excuted_date) ? ; state . end () } } impl < 'de > :: serde :: Deserialize < 'de > for Data { fn deserialize < D > (deserializer : D) -> Result < Self , D :: Error > where D : :: serde :: Deserializer < 'de > , { # [allow (warnings)] enum Field { $ ($ field) , + , id , user_id , text , command , tweet_url , command_type , date , excuted , excuted_tx , excuted_date } impl < 'de > :: serde :: Deserialize < 'de > for Field { fn deserialize < D > (deserializer : D) -> Result < Field , D :: Error > where D : :: serde :: Deserializer < 'de > , { struct FieldVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for FieldVisitor { type Value = Field ; fn expecting (& self , formatter : & mut :: std :: fmt :: Formatter) -> :: std :: fmt :: Result { formatter . write_str (& [$ (crate :: prisma :: tweets :: $ field :: NAME) , + , crate :: prisma :: tweets :: id :: NAME , crate :: prisma :: tweets :: user_id :: NAME , crate :: prisma :: tweets :: text :: NAME , crate :: prisma :: tweets :: command :: NAME , crate :: prisma :: tweets :: tweet_url :: NAME , crate :: prisma :: tweets :: command_type :: NAME , crate :: prisma :: tweets :: date :: NAME , crate :: prisma :: tweets :: excuted :: NAME , crate :: prisma :: tweets :: excuted_tx :: NAME , crate :: prisma :: tweets :: excuted_date :: NAME] . into_iter () . collect :: < Vec < _ >> () . join (", ")) } fn visit_str < E > (self , value : & str) -> Result < Field , E > where E : :: serde :: de :: Error , { match value { $ (crate :: prisma :: tweets :: $ field :: NAME => Ok (Field :: $ field)) , * , crate :: prisma :: tweets :: id :: NAME => Ok (Field :: id) , crate :: prisma :: tweets :: user_id :: NAME => Ok (Field :: user_id) , crate :: prisma :: tweets :: text :: NAME => Ok (Field :: text) , crate :: prisma :: tweets :: command :: NAME => Ok (Field :: command) , crate :: prisma :: tweets :: tweet_url :: NAME => Ok (Field :: tweet_url) , crate :: prisma :: tweets :: command_type :: NAME => Ok (Field :: command_type) , crate :: prisma :: tweets :: date :: NAME => Ok (Field :: date) , crate :: prisma :: tweets :: excuted :: NAME => Ok (Field :: excuted) , crate :: prisma :: tweets :: excuted_tx :: NAME => Ok (Field :: excuted_tx) , crate :: prisma :: tweets :: excuted_date :: NAME => Ok (Field :: excuted_date) , _ => Err (:: serde :: de :: Error :: unknown_field (value , FIELDS)) , } } } deserializer . deserialize_identifier (FieldVisitor) } } struct DataVisitor ; impl < 'de > :: serde :: de :: Visitor < 'de > for DataVisitor { type Value = Data ; fn expecting (& self , formatter : & mut std :: fmt :: Formatter) -> std :: fmt :: Result { formatter . write_str ("struct Data") } fn visit_map < V > (self , mut map : V) -> Result < Data , V :: Error > where V : :: serde :: de :: MapAccess < 'de > , { $ (let mut $ field = None ;) * let mut id = None ; let mut user_id = None ; let mut text = None ; let mut command = None ; let mut tweet_url = None ; let mut command_type = None ; let mut date = None ; let mut excuted = None ; let mut excuted_tx = None ; let mut excuted_date = None ; while let Some (key) = map . next_key () ? { match key { Field :: id => { if id . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: id :: NAME)) ; } id = Some (map . next_value () ?) ; } Field :: user_id => { if user_id . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: user_id :: NAME)) ; } user_id = Some (map . next_value () ?) ; } Field :: text => { if text . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: text :: NAME)) ; } text = Some (map . next_value () ?) ; } Field :: command => { if command . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: command :: NAME)) ; } command = Some (map . next_value () ?) ; } Field :: tweet_url => { if tweet_url . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: tweet_url :: NAME)) ; } tweet_url = Some (map . next_value () ?) ; } Field :: command_type => { if command_type . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: command_type :: NAME)) ; } command_type = Some (map . next_value () ?) ; } Field :: date => { if date . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: date :: NAME)) ; } date = Some (map . next_value () ?) ; } Field :: excuted => { if excuted . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: excuted :: NAME)) ; } excuted = Some (map . next_value () ?) ; } Field :: excuted_tx => { if excuted_tx . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: excuted_tx :: NAME)) ; } excuted_tx = Some (map . next_value () ?) ; } Field :: excuted_date => { if excuted_date . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: excuted_date :: NAME)) ; } excuted_date = Some (map . next_value () ?) ; } $ (Field :: $ field => { if $ field . is_some () { return Err (:: serde :: de :: Error :: duplicate_field (crate :: prisma :: tweets :: $ field :: NAME)) ; } $ field = Some (map . next_value () ?) ; }) * } } $ (let $ field = $ field . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: $ field :: NAME)) ? ;) * let id = id . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: id :: NAME)) ? ; let user_id = user_id . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: user_id :: NAME)) ? ; let text = text . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: text :: NAME)) ? ; let command = command . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: command :: NAME)) ? ; let tweet_url = tweet_url . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: tweet_url :: NAME)) ? ; let command_type = command_type . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: command_type :: NAME)) ? ; let date = date . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: date :: NAME)) ? ; let excuted = excuted . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: excuted :: NAME)) ? ; let excuted_tx = excuted_tx . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: excuted_tx :: NAME)) ? ; let excuted_date = excuted_date . ok_or_else (|| serde :: de :: Error :: missing_field (crate :: prisma :: tweets :: excuted_date :: NAME)) ? ; Ok (Data { id , user_id , text , command , tweet_url , command_type , date , excuted , excuted_tx , excuted_date , $ ($ field) , * }) } } const FIELDS : & 'static [& 'static str] = & ["id" , "user_id" , "text" , "command" , "tweet_url" , "command_type" , "date" , "excuted" , "excuted_tx" , "excuted_date"] ; deserializer . deserialize_struct ("Data" , FIELDS , DataVisitor) } } $ ($ (pub mod $ field { crate :: prisma :: tweets :: $ selection_mode ! (@ field_module ; $ field : $ selection_mode { $ ($ selections) + }) ; }) ?) + } ; (@ field_type ; $ field : ident $ ($ tokens : tt) *) => { compile_error ! (stringify ! (Cannot include nonexistent relation $ field on model "Tweets" , available relations are "")) } ; (@ field_module ; $ ($ tokens : tt) *) => { } ; (@ selection_field_to_selection_param ; $ ($ tokens : tt) *) => { compile_error ! (stringify ! ($ ($ tokens) *)) } ; (@ selections_to_params ; : $ macro_name : ident { $ ($ field : ident $ (($ ($ filters : tt) +) $ (. $ arg : ident ($ ($ arg_params : tt) *)) *) ? $ (: $ selection_mode : ident { $ ($ selections : tt) + }) ?) + }) => { [$ (crate :: prisma :: tweets :: $ macro_name ! (@ selection_field_to_selection_param ; $ field $ (($ ($ filters) +) $ (. $ arg ($ ($ arg_params) *)) *) ? $ (: $ selection_mode { $ ($ selections) + }) ?) ,) +] } ; (@ filters_to_args ;) => { vec ! [] } ; (@ filters_to_args ; $ ($ t : tt) *) => { $ ($ t) * } ; (@ field_serde_name ; id) => { "id" } ; (@ field_serde_name ; user_id) => { "user_id" } ; (@ field_serde_name ; text) => { "text" } ; (@ field_serde_name ; command) => { "command" } ; (@ field_serde_name ; tweet_url) => { "tweet_url" } ; (@ field_serde_name ; command_type) => { "command_type" } ; (@ field_serde_name ; date) => { "date" } ; (@ field_serde_name ; excuted) => { "excuted" } ; (@ field_serde_name ; excuted_tx) => { "excuted_tx" } ; (@ field_serde_name ; excuted_date) => { "excuted_date" } ; }
     pub use _include_tweets as include;
     pub enum IncludeParam {
         Id(id::Include),
@@ -662,8 +837,10 @@ pub mod tweets {
         Command(command::Include),
         TweetUrl(tweet_url::Include),
         CommandType(command_type::Include),
-        Excuted(excuted::Include),
         Date(date::Include),
+        Excuted(excuted::Include),
+        ExcutedTx(excuted_tx::Include),
+        ExcutedDate(excuted_date::Include),
     }
     impl IncludeParam {
         pub fn to_selection(self) -> ::prisma_client_rust::Selection {
@@ -674,13 +851,15 @@ pub mod tweets {
                 Self::Command(data) => data.to_selection(),
                 Self::TweetUrl(data) => data.to_selection(),
                 Self::CommandType(data) => data.to_selection(),
-                Self::Excuted(data) => data.to_selection(),
                 Self::Date(data) => data.to_selection(),
+                Self::Excuted(data) => data.to_selection(),
+                Self::ExcutedTx(data) => data.to_selection(),
+                Self::ExcutedDate(data) => data.to_selection(),
             }
         }
     }
     #[macro_export]
-    macro_rules ! _partial_unchecked_tweets { ($ struct_name : ident { $ ($ scalar_field : ident) + }) => { :: prisma_client_rust :: macros :: partial_unchecked ! { crate :: prisma :: tweets struct $ struct_name { # [serde (rename = "id")] pub id : String , # [serde (rename = "user_id")] pub user_id : String , # [serde (rename = "text")] pub text : String , # [serde (rename = "command")] pub command : String , # [serde (rename = "tweet_url")] pub tweet_url : String , # [serde (rename = "command_type")] pub command_type : crate :: prisma :: CommandType , # [serde (rename = "excuted")] pub excuted : bool , # [serde (rename = "date")] pub date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > } [$ ($ scalar_field) , +] } } ; }
+    macro_rules ! _partial_unchecked_tweets { ($ struct_name : ident { $ ($ scalar_field : ident) + }) => { :: prisma_client_rust :: macros :: partial_unchecked ! { crate :: prisma :: tweets struct $ struct_name { # [serde (rename = "id")] pub id : String , # [serde (rename = "user_id")] pub user_id : String , # [serde (rename = "text")] pub text : String , # [serde (rename = "command")] pub command : String , # [serde (rename = "tweet_url")] pub tweet_url : String , # [serde (rename = "command_type")] pub command_type : crate :: prisma :: CommandType , # [serde (rename = "date")] pub date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > , # [serde (rename = "excuted")] pub excuted : bool , # [serde (rename = "excuted_tx")] pub excuted_tx : String , # [serde (rename = "excuted_date")] pub excuted_date : :: prisma_client_rust :: chrono :: DateTime < :: prisma_client_rust :: chrono :: FixedOffset , > } [$ ($ scalar_field) , +] } } ; }
     pub use _partial_unchecked_tweets as partial_unchecked;
     #[derive(Debug, Clone, :: serde :: Serialize, :: serde :: Deserialize)]
     pub struct Data {
@@ -696,10 +875,15 @@ pub mod tweets {
         pub tweet_url: String,
         #[serde(rename = "command_type")]
         pub command_type: super::CommandType,
-        #[serde(rename = "excuted")]
-        pub excuted: bool,
         #[serde(rename = "date")]
         pub date: ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
+        #[serde(rename = "excuted")]
+        pub excuted: bool,
+        #[serde(rename = "excuted_tx")]
+        pub excuted_tx: String,
+        #[serde(rename = "excuted_date")]
+        pub excuted_date:
+            ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
     }
     impl Data {}
     #[derive(Clone)]
@@ -717,8 +901,12 @@ pub mod tweets {
         SetCommand(String),
         SetTweetUrl(String),
         SetCommandType(super::CommandType),
-        SetExcuted(bool),
         SetDate(::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>),
+        SetExcuted(bool),
+        SetExcutedTx(String),
+        SetExcutedDate(
+            ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
+        ),
     }
     impl From<SetParam> for (String, ::prisma_client_rust::PrismaValue) {
         fn from(param: SetParam) -> Self {
@@ -747,12 +935,20 @@ pub mod tweets {
                     command_type::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::Enum(value.to_string()),
                 ),
+                SetParam::SetDate(value) => (
+                    date::NAME.to_string(),
+                    ::prisma_client_rust::PrismaValue::DateTime(value),
+                ),
                 SetParam::SetExcuted(value) => (
                     excuted::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::Boolean(value),
                 ),
-                SetParam::SetDate(value) => (
-                    date::NAME.to_string(),
+                SetParam::SetExcutedTx(value) => (
+                    excuted_tx::NAME.to_string(),
+                    ::prisma_client_rust::PrismaValue::String(value),
+                ),
+                SetParam::SetExcutedDate(value) => (
+                    excuted_date::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::DateTime(value),
                 ),
             }
@@ -766,8 +962,12 @@ pub mod tweets {
         Command(String),
         TweetUrl(String),
         CommandType(super::CommandType),
-        Excuted(bool),
         Date(::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>),
+        Excuted(bool),
+        ExcutedTx(String),
+        ExcutedDate(
+            ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
+        ),
     }
     impl From<UncheckedSetParam> for SetParam {
         fn from(param: UncheckedSetParam) -> Self {
@@ -778,8 +978,10 @@ pub mod tweets {
                 UncheckedSetParam::Command(value) => Self::SetCommand(value),
                 UncheckedSetParam::TweetUrl(value) => Self::SetTweetUrl(value),
                 UncheckedSetParam::CommandType(value) => Self::SetCommandType(value),
-                UncheckedSetParam::Excuted(value) => Self::SetExcuted(value),
                 UncheckedSetParam::Date(value) => Self::SetDate(value),
+                UncheckedSetParam::Excuted(value) => Self::SetExcuted(value),
+                UncheckedSetParam::ExcutedTx(value) => Self::SetExcutedTx(value),
+                UncheckedSetParam::ExcutedDate(value) => Self::SetExcutedDate(value),
             }
         }
     }
@@ -791,8 +993,10 @@ pub mod tweets {
         Command(::prisma_client_rust::Direction),
         TweetUrl(::prisma_client_rust::Direction),
         CommandType(::prisma_client_rust::Direction),
-        Excuted(::prisma_client_rust::Direction),
         Date(::prisma_client_rust::Direction),
+        Excuted(::prisma_client_rust::Direction),
+        ExcutedTx(::prisma_client_rust::Direction),
+        ExcutedDate(::prisma_client_rust::Direction),
     }
     impl Into<(String, ::prisma_client_rust::PrismaValue)> for OrderByParam {
         fn into(self) -> (String, ::prisma_client_rust::PrismaValue) {
@@ -821,12 +1025,20 @@ pub mod tweets {
                     command_type::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::String(direction.to_string()),
                 ),
+                Self::Date(direction) => (
+                    date::NAME.to_string(),
+                    ::prisma_client_rust::PrismaValue::String(direction.to_string()),
+                ),
                 Self::Excuted(direction) => (
                     excuted::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::String(direction.to_string()),
                 ),
-                Self::Date(direction) => (
-                    date::NAME.to_string(),
+                Self::ExcutedTx(direction) => (
+                    excuted_tx::NAME.to_string(),
+                    ::prisma_client_rust::PrismaValue::String(direction.to_string()),
+                ),
+                Self::ExcutedDate(direction) => (
+                    excuted_date::NAME.to_string(),
                     ::prisma_client_rust::PrismaValue::String(direction.to_string()),
                 ),
             }
@@ -843,8 +1055,10 @@ pub mod tweets {
         Command(_prisma::read_filters::StringFilter),
         TweetUrl(_prisma::read_filters::StringFilter),
         CommandType(_prisma::read_filters::CommandTypeFilter),
-        Excuted(_prisma::read_filters::BoolFilter),
         Date(_prisma::read_filters::DateTimeFilter),
+        Excuted(_prisma::read_filters::BoolFilter),
+        ExcutedTx(_prisma::read_filters::StringFilter),
+        ExcutedDate(_prisma::read_filters::DateTimeFilter),
     }
     impl ::prisma_client_rust::WhereInput for WhereParam {
         fn serialize(self) -> ::prisma_client_rust::SerializedWhereInput {
@@ -891,8 +1105,10 @@ pub mod tweets {
                 Self::Command(value) => (command::NAME, value.into()),
                 Self::TweetUrl(value) => (tweet_url::NAME, value.into()),
                 Self::CommandType(value) => (command_type::NAME, value.into()),
-                Self::Excuted(value) => (excuted::NAME, value.into()),
                 Self::Date(value) => (date::NAME, value.into()),
+                Self::Excuted(value) => (excuted::NAME, value.into()),
+                Self::ExcutedTx(value) => (excuted_tx::NAME, value.into()),
+                Self::ExcutedDate(value) => (excuted_date::NAME, value.into()),
             };
             ::prisma_client_rust::SerializedWhereInput::new(name, value.into())
         }
@@ -938,8 +1154,10 @@ pub mod tweets {
                 ::prisma_client_rust::sel(command::NAME),
                 ::prisma_client_rust::sel(tweet_url::NAME),
                 ::prisma_client_rust::sel(command_type::NAME),
-                ::prisma_client_rust::sel(excuted::NAME),
                 ::prisma_client_rust::sel(date::NAME),
+                ::prisma_client_rust::sel(excuted::NAME),
+                ::prisma_client_rust::sel(excuted_tx::NAME),
+                ::prisma_client_rust::sel(excuted_date::NAME),
             ]
         }
     }
@@ -1271,10 +1489,14 @@ pub mod _prisma {
         TweetUrl,
         #[serde(rename = "command_type")]
         CommandType,
-        #[serde(rename = "excuted")]
-        Excuted,
         #[serde(rename = "date")]
         Date,
+        #[serde(rename = "excuted")]
+        Excuted,
+        #[serde(rename = "excuted_tx")]
+        ExcutedTx,
+        #[serde(rename = "excuted_date")]
+        ExcutedDate,
     }
     impl ToString for TweetsScalarFieldEnum {
         fn to_string(&self) -> String {
@@ -1285,8 +1507,10 @@ pub mod _prisma {
                 Self::Command => "command".to_string(),
                 Self::TweetUrl => "tweet_url".to_string(),
                 Self::CommandType => "command_type".to_string(),
-                Self::Excuted => "excuted".to_string(),
                 Self::Date => "date".to_string(),
+                Self::Excuted => "excuted".to_string(),
+                Self::ExcutedTx => "excuted_tx".to_string(),
+                Self::ExcutedDate => "excuted_date".to_string(),
             }
         }
     }
@@ -1378,27 +1602,6 @@ pub mod _prisma {
             }
         }
         #[derive(Clone)]
-        pub enum BoolFilter {
-            Equals(bool),
-            Not(bool),
-        }
-        impl Into<::prisma_client_rust::SerializedWhereValue> for BoolFilter {
-            fn into(self) -> ::prisma_client_rust::SerializedWhereValue {
-                match self {
-                    Self::Equals(value) => {
-                        ::prisma_client_rust::SerializedWhereValue::Object(vec![(
-                            "equals".to_string(),
-                            ::prisma_client_rust::PrismaValue::Boolean(value),
-                        )])
-                    }
-                    Self::Not(value) => ::prisma_client_rust::SerializedWhereValue::Object(vec![(
-                        "not".to_string(),
-                        ::prisma_client_rust::PrismaValue::Boolean(value),
-                    )]),
-                }
-            }
-        }
-        #[derive(Clone)]
         pub enum DateTimeFilter {
             Equals(
                 ::prisma_client_rust::chrono::DateTime<::prisma_client_rust::chrono::FixedOffset>,
@@ -1473,6 +1676,27 @@ pub mod _prisma {
                     Self::Not(value) => ::prisma_client_rust::SerializedWhereValue::Object(vec![(
                         "not".to_string(),
                         ::prisma_client_rust::PrismaValue::DateTime(value),
+                    )]),
+                }
+            }
+        }
+        #[derive(Clone)]
+        pub enum BoolFilter {
+            Equals(bool),
+            Not(bool),
+        }
+        impl Into<::prisma_client_rust::SerializedWhereValue> for BoolFilter {
+            fn into(self) -> ::prisma_client_rust::SerializedWhereValue {
+                match self {
+                    Self::Equals(value) => {
+                        ::prisma_client_rust::SerializedWhereValue::Object(vec![(
+                            "equals".to_string(),
+                            ::prisma_client_rust::PrismaValue::Boolean(value),
+                        )])
+                    }
+                    Self::Not(value) => ::prisma_client_rust::SerializedWhereValue::Object(vec![(
+                        "not".to_string(),
+                        ::prisma_client_rust::PrismaValue::Boolean(value),
                     )]),
                 }
             }

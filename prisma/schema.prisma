@@ -1,6 +1,6 @@
 datasource db {
     provider = "mysql"
-    url      = "mysql://root:root@localhost:3306/bot"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -22,6 +22,8 @@ model Tweets {
     command      String      @db.Text
     tweet_url    String      @db.TinyText
     command_type CommandType
-    excuted      Boolean     @default(false)
     date         DateTime
+    excuted      Boolean     @default(false)
+    excuted_tx   String      @default("")
+    excuted_date DateTime    @default(now())
 }
