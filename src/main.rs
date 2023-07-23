@@ -1,18 +1,15 @@
-use std::str::FromStr;
-
 use dotenv::dotenv;
 use ethers::types::H160;
 use log::{error, info};
-use reverse_engineered_twitter_api::API;
-use reverse_engineered_twitter_api::types::Tweet;
-
+use regex::Regex;
+use reverse_engineered_twitter_api::ReAPI;
+use std::str::FromStr;
+use tokio::join;
 mod cmd;
 mod util;
 
-#[tokio::main]
-async fn main() {
-    dotenv().ok();
-    let mut twitter_api = API::new();
+async fn fetch_tweets() {
+    let mut twitter_api = ReAPI::new();
     let name = std::env::var("TWITTER_USER_NAME").unwrap();
     let pwd = std::env::var("TWITTER_USER_PASSWORD").unwrap();
     let _ = twitter_api.login(&name, &pwd, "").await;
@@ -22,12 +19,35 @@ async fn main() {
     if !logged_in {
         panic!("failed to login")
     }
-
-
-    while true {
-        
+    let pattern_img_url =
+        r#"(https://t.co/[a-zA-Z0-9]{10})|(http(s?):([/|.|\w|\s|-])*.(?:jpe?g|gif|png|svg|webp))"#;
+    let pattern_address = r#"0x[a-f0-9]{40}"#;
+    let pattern_mint_cmd = format!(
+        r#"@shareverse_bot\s+(mint|MINT)?\s+{}(to|TO)?\s+{}"#,
+        pattern_img_url, pattern_address
+    );
+    let pattern = Regex::new(&pattern_mint_cmd).unwrap();
+    let q = "@shareverse_bot -filter:retweets";
+    let limit = 10;
+    let mut cursor = String::from("");
+    loop {
+        let res = twitter_api.search_tweets(q, limit, &cursor).await;
+        match res {
+            Ok((tweets, next_cursor)) => {
+                for tweet in tweets {
+                    if pattern.is_match(&tweet.text) {
+                        // TODO save to db
+                    }
+                }
+                cursor = next_cursor;
+            }
+            Err(_) => {}
+        }
     }
+}
 
+// TODO: excute commands
+async fn excute_commands() {
     let client = util::new_client();
     let command = cmd::NFTMinting {
         to: H160::from_str("0x8a35A64A20840c71d2eFb5aAeEF6933F5e6A3047").unwrap(),
@@ -47,6 +67,10 @@ async fn main() {
     }
 }
 
-fn fetch_new_tweets(cursor: String) -> Result<Vec<Tweet>, reqwest::Error> {
-
+#[tokio::main]
+async fn main() {
+    dotenv().ok();
+    let future_fetch_tweets = fetch_tweets();
+    let future_excute_commands = excute_commands();
+    join!(future_excute_commands, future_fetch_tweets);
 }
