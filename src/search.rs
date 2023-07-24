@@ -20,7 +20,7 @@ impl ReAPI {
 
         let mut variables = json!(
             {
-                "rawQuery":     query,
+                "rawQuery":     query.to_string(),
                 "count":        limit,
                 "querySource":  "typed_query",
                 "product":      "Top"
@@ -56,7 +56,7 @@ impl ReAPI {
             }
         );
         if cursor.ne("") {
-            variables["cursor"] = cursor.into();
+            variables["cursor"] = cursor.to_string().into();
         }
         variables["product"] = "Latest".into();
         let q = [
@@ -95,14 +95,14 @@ impl ReAPI {
         match search_result {
             Ok(res) => {
                 let mut tweets: Vec<Tweet> = vec![];
-                for item in res
+                let instructions = res
                     .data
                     .search_by_raw_query
                     .search_timeline
                     .timeline
                     .instructions
-                    .unwrap()
-                {
+                    .unwrap();
+                for item in instructions {
                     if item.instruction_type.ne("TimelineAddEntries")
                         && item.instruction_type.ne("TimelineReplaceEntry")
                     {
@@ -115,23 +115,19 @@ impl ReAPI {
                             if entry.content.value.is_some() {
                                 cursor = entry.content.value.unwrap();
                             }
-                            continue;
                         }
                     }
-                    for item in item.entries {
-                        if item.content.item_content.is_none() {
+                    for entry in item.entries {
+                        if entry.content.item_content.is_none() {
                             continue;
                         }
-                        let item = item.content.item_content.unwrap();
+                        let item = entry.content.item_content.unwrap();
                         if item.tweet_display_type.eq("Tweet") {
-                            let u = item
-                                .tweet_results
-                                .result
-                                .core
-                                .user_results
-                                .result
-                                .legacy
-                                .unwrap();
+                            let core = item.tweet_results.result.core;
+                            if core.is_none() {
+                                continue;
+                            }
+                            let u = core.unwrap().user_results.result.legacy.unwrap();
                             let t = item.tweet_results.result.legacy;
                             if let Some(tweet) = parse_legacy_tweet(&u, &t) {
                                 tweets.push(tweet)
