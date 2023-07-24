@@ -9,7 +9,7 @@ Reverse engineered Twitter's API has not a lots of limitations, the rate limit i
 
 ```
 [dependencies]
-reverse-engineered-twitter-api = "0.1.2"
+reverse-engineered-twitter-api = "0.1.3"
 ```
 
 ## Usage
