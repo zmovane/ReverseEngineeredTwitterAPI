@@ -4725,9 +4725,9 @@ dependencies = [
 
 [[package]]
 name = "reverse-engineered-twitter-api"
-version = "0.1.2"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58ee1e55134ebcacc980378424f8763bc19e850d25377b749a023609a0ea54f7"
+checksum = "59670c7aadcdff4a9ec805a9254db05565af88348f685323507ea7622835fd83"
 dependencies = [
  "chrono",
  "dotenv",

@@ -3,6 +3,7 @@ use cmd::NFTArgs;
 use dotenv::dotenv;
 use ethers::types::H160;
 use ethers::types::U64;
+use log::error;
 use prisma::tweets;
 use prisma::CommandType;
 use prisma::PrismaClient;
@@ -56,8 +57,8 @@ async fn fetch_tweets(db_client: &PrismaClient) {
         panic!("failed to login")
     }
     let pattern: Regex = util::command_pattern();
-    let q = "@shareverse_bot -filter:retweets";
-    let limit = 10;
+    let q = "@shareverse_bot";
+    let limit = 50;
     let mut cursor = String::from("");
     loop {
         let res = twitter_api.search_tweets(q, limit, &cursor).await;
@@ -65,7 +66,8 @@ async fn fetch_tweets(db_client: &PrismaClient) {
             Ok((tweets, next_cursor)) => {
                 for tweet in tweets {
                     let text = tweet.text.to_owned();
-                    if !pattern.is_match(&text) {
+                    let matched = pattern.is_match(&text);
+                    if !matched {
                         continue;
                     }
                     let command = pattern.captures(&text).unwrap().get(0).unwrap().as_str();
@@ -73,7 +75,9 @@ async fn fetch_tweets(db_client: &PrismaClient) {
                 }
                 cursor = next_cursor;
             }
-            Err(_) => {}
+            Err(e) => {
+                error!("{}", e);
+            }
         }
         tokio::time::sleep(Duration::from_secs(300)).await;
     }
