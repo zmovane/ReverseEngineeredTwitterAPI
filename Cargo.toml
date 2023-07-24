@@ -1,6 +1,6 @@
 [package]
 name = "reverse-engineered-twitter-api"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 description = "Reverse Engineered Twitter API"
 license = "MIT"
