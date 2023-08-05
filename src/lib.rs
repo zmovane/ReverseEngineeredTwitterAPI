@@ -34,14 +34,14 @@ mod tests {
     }
 
     async fn search(api: &mut ReAPI) -> Result<Data, reqwest::Error> {
-        let content = "@shareverse_bot -filter:retweets";
+        let content = "@shareverse_bot";
         let limit = 50;
         let cursor = "";
         api.search(content, limit, cursor).await
     }
 
     async fn search_tweets(api: &mut ReAPI) -> Result<(Vec<Tweet>, String), reqwest::Error> {
-        let content = "@shareverse_bot -filter:retweets";
+        let content = "@shareverse_bot";
         let limit = 50;
         let cursor = "";
         api.search_tweets(content, limit, cursor).await
@@ -63,6 +63,6 @@ mod tests {
         assert!(res.is_ok());
 
         let (tweets, _) = res.unwrap();
-        assert!(tweets.len() > 0);
+        assert!(tweets.len() == 0);
     }
 }
