@@ -80,6 +80,8 @@ impl ReAPI {
             .text()
             .await
             .unwrap();
+
+        println!("text:{}", text);
         let res: Data = serde_json::from_str(&text).unwrap();
         return Ok(res);
     }
@@ -90,11 +92,12 @@ impl ReAPI {
         limit: u8,
         cursor: &str,
     ) -> Result<(Vec<Tweet>, String), reqwest::Error> {
+        let mut tweets: Vec<Tweet> = vec![];
+        
         let search_result = self.search(query, limit, cursor).await;
         let mut cursor = String::from("");
         match search_result {
             Ok(res) => {
-                let mut tweets: Vec<Tweet> = vec![];
                 let instructions = res
                     .data
                     .search_by_raw_query
@@ -114,6 +117,7 @@ impl ReAPI {
                         if cursor_type.eq("Bottom") {
                             if entry.content.value.is_some() {
                                 cursor = entry.content.value.unwrap();
+                                continue;
                             }
                         }
                     }
@@ -132,6 +136,13 @@ impl ReAPI {
                             if let Some(tweet) = parse_legacy_tweet(&u, &t) {
                                 tweets.push(tweet)
                             }
+                        } else if entry
+                            .content
+                            .cursor_type
+                            .unwrap_or("".to_string())
+                            .eq("Bottom")
+                        {
+                            cursor = entry.content.value.unwrap();
                         }
                     }
                 }
