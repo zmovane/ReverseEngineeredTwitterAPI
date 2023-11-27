@@ -1,6 +1,7 @@
 pub mod auth;
 pub mod search;
 pub mod types;
+pub mod relation;
 use reqwest::Client;
 
 pub const LOGIN_URL: &str = "https://api.twitter.com/1.1/onboarding/task.json";
