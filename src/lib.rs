@@ -16,6 +16,7 @@ pub const BEARER_TOKEN: &str = "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6
 pub const APP_CONSUMER_KEY: &str = "3nVuSoBZnx6U4vzUxf5w";
 pub const APP_CONSUMER_SECRET: &str = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys";
 
+#[derive(Debug, Clone)]
 pub struct ReAPI {
     client: Client,
     guest_token: String,
