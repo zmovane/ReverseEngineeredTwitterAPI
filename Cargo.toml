@@ -5,7 +5,6 @@ edition = "2021"
 description = "Reverse Engineered Twitter API"
 repository = "https://github.com/Amovane/ReverseEngineeredTwitterAPI"
 license = "MIT"
-# repository = "https://github.com/Amovane/ReverseEngineeredTwitterAPI/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
