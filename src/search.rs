@@ -80,6 +80,8 @@ impl ReAPI {
             .text()
             .await
             .unwrap();
+
+        println!("text:{}", text);
         let res: Data = serde_json::from_str(&text).unwrap();
         return Ok(res);
     }
