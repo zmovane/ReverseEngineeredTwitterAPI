@@ -1,5 +1,5 @@
 [package]
-name = "reX"
+name = "reverse-engineered-twitter-api"
 version = "0.1.4"
 edition = "2021"
 description = "Reverse Engineered Twitter API"
