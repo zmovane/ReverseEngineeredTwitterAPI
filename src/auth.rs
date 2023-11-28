@@ -1,3 +1,5 @@
+use std::io::ErrorKind;
+
 use super::{ReAPI, BEARER_TOKEN, GUEST_ACTIVE_URL, LOGIN_URL, VERIFY_CREDENTIALS_URL};
 use reqwest::{self, Error};
 use serde::Deserialize;
@@ -134,9 +136,12 @@ impl ReAPI {
         match res {
             Ok(r) => {
                 let op = r.json::<serde_json::Value>().await?;
-                let guest_token = op.get("guest_token").unwrap();
-                self.guest_token = guest_token.to_string();
-                return Ok(());
+                let guest_token = op.get("guest_token");
+                if let Some(guest_token) = guest_token {
+                    self.guest_token = guest_token.to_string();
+                    return Ok(());
+                }
+                Ok(())
             }
             Err(e) => Err(e),
         }
